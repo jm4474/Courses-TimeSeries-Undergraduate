@@ -1,0 +1,41 @@
+\documentclass{article}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lecture 1}
+\date{}
+\maketitle
+
+
+\section{Main Definitions}
+
+\textbf{Definition 1:} A \underline{time series} is a collection of \underline{random variables} 
+\[\{ X_t \}_{t \in T}\]
+that are indexed by time.  \\
+
+A \underline{time series data set} usually refers to a realization of a time series. In practice, time series and time series data are used interchangeably.  \\
+
+
+\noindent \textbf{Definition 2:} A \underline{time series model} is a collection of \textbf{joint} distributions for a time series $\{X_1, X_2, \ldots, X_{T}\}$.\\
+
+{\scshape EXAMPLE 1} (based on section 1.1.4 in the book, p. 3). For $t=1 \ldots 200$, let $(\varepsilon_{1}, \ldots, \varepsilon_{200})$ be a collection of i.i.d. $\mathcal{N}(0,.25)$.  An example of a time series model for $(X_1, \ldots , X_{200})$ is:
+
+\[ X_t = \textrm{cos}(t/10) + \varepsilon_t, \quad t=1, 200. \]
+
+There are two things that we will usually do with a time series model (or any other statistical model): \emph{analyze the marginal distributions} and \emph{model simulation}. 
+
+\textbf{1. Analysis of Marginal Distributions:} The time series model gives the distribution of the full collection $(X_1, X_2, \ldots, X_t)$ (this is a multivariate distribution). In particular, it gives the distribution of each of the $X_t$\textquoteright s individually. In this example:
+\[ X_t \sim \mathcal{N}(\cos(t/10), .25) \]
+This means that each $X_t$ is normal centered at $\cos(t/10)$ (thus, the mean depends on time) and variance .25. \\
+
+\textbf{2. Model Simulation:} One thing that we will do throughout the course is use the model to \emph{simulate} data. Simulation will refer to act as if we were nature (more of this on Lecture 3).\\
+
+
+
+
+
+\end{document}
