@@ -1,0 +1,335 @@
+%%!TEX TS-program = latex
+\documentclass[12pt]{article} %DIF > 
+
+
+%------------------------------------------------------My packages--------------------------------------------------
+
+\usepackage{todonotes}                         %I use this to include comments on the PDF document. 
+                                                                     %Requires todonotes.sty
+                                                                     
+
+\usepackage[longnamesfirst]{natbib}  % I use this package for the bibliography
+\setlength{\bibsep}{6.5pt}  
+
+\usepackage{setspace}                          %This package allows us to use singlespacing,doublespacing,
+\usepackage{amsfonts}                          %The standard math fonts (American Math Society)
+\usepackage{amsmath}                          %Mathematics package
+\usepackage{amssymb}                         %Symbols (American Math Society)
+\usepackage{amsthm}                           % Theorem enviroment (American Math society)
+\usepackage{bm}                                    %Bold greeks
+\usepackage{bbm}                                  %Bold numerals
+\usepackage{color}                                 %Good for introducing texts of different colors
+	\definecolor{MyDarkBlue}{rgb}{0.1,0.2,0.65}
+\usepackage{hyperref}                          %Controls hyperreferences
+	\hypersetup{linkcolor=black, citecolor=MyDarkBlue, urlcolor=black, colorlinks=true}
+\usepackage{mathtools}                        % I copied this from Tomasz (not sure what it does)
+\usepackage{graphicx}                          % Idem
+
+\usepackage{subfig}                               %This is the package I use for inserting multiple figures
+\captionsetup[subfloat] {position=bottom} 
+
+\usepackage{enumerate}                      %Item evironments
+\usepackage[vmargin={1.5in, 1.5in},hmargin={1in, 1in}]{geometry} 
+
+
+\usepackage[T1]{fontenc}
+
+\usepackage{lmodern} \normalfont %to load T1lmr.fd 
+\DeclareFontShape{T1}{lmr}{bx}{sc} { <-> ssub * cmr/bx/sc }{}
+
+%\usepackage[labelfont=bf, margin=1cm]{caption}
+
+
+\numberwithin{equation}{section}
+
+
+
+%--------------------------------------------------New Theorems---------------------------------------------------
+
+\newtheorem{lemma}{Lemma}
+\newtheorem*{lemma*}{Lemma}
+\newtheorem{cor}{Corollary}
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{conjecture}{Conjecture}
+\newtheorem*{theorem*}{Theorem}
+\newtheorem{result}{Result}
+\newtheorem{claim}{Claim}
+\newtheorem*{coro}{Corollary}
+\theoremstyle{definition}
+\newtheorem{problem}{Problem}
+\newtheorem{remark}{Remark}
+\newtheorem{axiom}{Axiom}
+\newtheorem*{definition}{Definition}
+\newtheorem{assumption}{Assumption}
+\newtheorem*{axiom*}{Axiom}
+\newtheorem*{comment*} {Comment}
+\newtheorem{example}{Example}
+
+%---------------------------------------------Some commands for Autoreference------------------------------
+
+\newcommand{\refaxiom}[1]{\hyperref[{#1}]{Axiom }\autoref{#1}}
+\newcommand{\refass}[1]{\hyperref[{#1}]{Assumption }\autoref{#1}}
+\newcommand{\refres}[1]{\hyperref[{#1}]{Result }\autoref{#1}}
+\newcommand{\refprop}[1]{\hyperref[{#1}]{Proposition }\autoref{#1}}
+\newcommand{\refcor}[1]{\hyperref[{#1}]{Corollary }\autoref{#1}}
+\newcommand{\reflemma}[1]{\hyperref[{#1}]{Lemma }\autoref{#1}}
+\newcommand{\refremark}[1]{\hyperref[{#1}]{Remark }\autoref{#1}}
+\newcommand{\reftheorem}[1]{\hyperref[{#1}]{Theorem}\autoref{#1}}
+
+
+
+  
+%--------------------------------------------Shortcuts for math symbols--------------------------------------------
+
+\newcommand{\F}{\mathcal{F}}                                               %Sigma algebra
+\newcommand{\T}{\mathcal{T}}                                               %Topology  
+\newcommand{\R}{\mathbb{R}}                                              %Real Numbers
+\newcommand{\cdist}{\overset{d}{\rightarrow}}                    %Convergence in distributions
+\newcommand{\cprob}{\overset{p}{\rightarrow}}                  %Convergence in probability
+\newcommand{\cas}{\overset{a.s}{\rightarrow}}                   %Almost sure convergence
+\newcommand{\prob}{\mathbb{P}}                                         %Bold probability
+\newcommand{\expec}{\mathbb{E}}                                      %Bold Expectation
+\newcommand{\e}{\varepsilon}                                                %epsilon
+
+
+\newcommand\cites[1]{\citeauthor{#1}'s \citeyearpar{#1}}               %Possesive cite (I never use it)
+
+%--------------------------------------------Commands I have used before-----------------------------------
+\newcommand{\y}{y}                                       % Outcome Variable
+\newcommand{\Y}{X}                                      % Endogenous regressor
+\newcommand{\Ybar}{\textbf{Y}}               % Matrix of Endogenours Regressors
+\newcommand{\vbar}{\textbf{V}}               % Matrix of Reduced Form Errors
+\newcommand{\Gammab}{\mathbf{\Gamma}}               % Unrestricted coefficients
+\newcommand{\w}[1]{\ddot{#1}}                    % Within Transformation
+\newcommand{\0}{\textbf{0}}                          % Bold 0
+\newcommand{\eye}[1]{\mathbb{I}_{#1}}      %Identity matrix
+\newcommand{\N}{\mathcal{N}}                     % Cal N (for Normal)
+\newcommand{\kron}{\otimes}                        %Kroenecker
+\newcommand{\norm}{\rho}                             %Rho parameter in Gary's re-parameterization
+\newcommand{\vect}{\text{vec}}                       %Text vectorization 
+\newcommand{\SX}{\mathbf{X}}
+\newcommand{\Comment}[1]{\todo[inline, color=green!40]{\textbf{Comment: }#1}}         %Creates a green box for my comments
+\newcommand{\Remark}[1]{\todo[inline, color=blue!40]{\textbf{Remark: }#1}}         %Creates a green box for my comments
+\newcommand{\kronmean}[2]{\left(\begin{array}{c} #1 \\1 \end{array}\right) \kron #2 }                            %kronecker mean (beta 1) kron something
+\newcommand{\p}{\bot}                                     %the projection command
+\newcommand{\kronmeanzero}[2]{\left(\begin{array}{c} #1 \\0 \end{array}\right) \kron #2 }                            %kronecker mean (beta 0) kron something
+
+
+%----------------------------------------Commands for this paper---------------------------------------
+\newcommand{\x}{x}                                                           %Realization
+\newcommand{\X}{X}                                                         %Random Variable
+\newcommand{\SW}{\mathcal{W}}                                     %Sample Space
+\newcommand{\ParamS}{\mathbf{\Theta}}                    %Parameter Space
+
+\newcommand{\W}{\textbf{W}}                                          %Weighting Function
+
+\newcommand{\Borel}[1]{\mathcal{B}({#1})}                    %Borel sigma algebra
+ 
+%A double line
+\def\doubleline{
+\begin{center}
+\line(1,0){400}\\
+\line(1,0){400}
+\end{center}
+}
+
+%An "Important" header
+\def\Important{
+\begin{center}
+\line(1,0){480}\\
+\textcolor{red}{Important}
+\line(1,0){480}
+\end{center}
+}
+
+
+
+\newcommand{\Ideas}[1]{\todo[inline]{\textbf{Ideas: }#1}}         %Creates an orange box fot the main ideas of each section. 
+
+
+
+\title {The Econometrics of Time Series\thanks{First version: January 1st, 2017. This version: \today}}
+\author {Jos\'e Luis Montiel Olea \protect\\
+Columbia-Spring 2019 \protect \\
+}
+\date{}
+             
+\begin{document}
+\onehalfspace
+\maketitle
+
+
+\noindent \textbf{Course Description:} This course will provide a basic, yet rigorous, introduction to Time Series Econometrics. This course is intended for upper-level undergraduates and beginning M.A./M.S. students.  \\
+
+
+\noindent \textbf{Background:} The official prerequisites for this course are ECON W3211, W3213, W3412, and MATH V2010. The official prerequisites imply that you should have knowledge of basic calculus and elementary probability/statistics. Please note that even though there are no proof-based mathematics courses listed as prerequisites, most of the theoretical results I will cover in the course will have a \emph{definition-proposition-proof} structure.  \\ 
+
+\noindent \textbf{Textbook:} Most of the material covered in this class will be based on my lecture notes. There are two books that I will sometimes make reference to, but none of them is mandatory. 
+
+\begin{enumerate}
+
+\item ``\emph{Introduction to Time Series and Forecasting}\textquotedblright \: [ITSF] (2nd Edition), by Peter J. Brockwell (Colorado State University, Department of Statistics) and Richard A. Davis (Columbia University, Department of Statistics). Springer 2006. \\
+
+This book is available online through CUL. The link is here: \\
+
+\url{https://link.springer.com/content/pdf/10.1007\%2Fb97391.pdf}
+
+\item ``\emph{Introduction to Econometrics}\textquotedblright \: [IE] (3rd Edition), by James Stock (Harvard University, Department of Economics) and Mark Watson (Princeton University, Department of Economics). Pearson Education.\\ 
+
+\end{enumerate}
+
+\noindent \textbf{Problem Sets:} You will receive a problem set almost every Wednesday. The problem set will be due on Wednesday of the following week, at the beginning of the class. Each exercise is graded on a 0/10 scale. All late problem sets will be assigned a grade of 0/10. \\
+ 
+\noindent \textbf{Grading:} Your grade will be based on the problem sets (50\%), a midterm (25\%) and a final exam (25\%).\\
+
+\noindent \textbf{Grading Policy:} The Columbia College grading system is as follows: A, excellent; B, good; C, fair; D, poor but passing; F, failure (a final grade, not subject to reexamination). Plus (+) and minus (-) grades may also be used, except with D or F. Pass (P) is used for students who can elect this option.\\
+
+In line with the suggested curve for undergraduate lecture courses at the Economics department: A\textquoteright s will be reserved for the Top 30\% of the class; C\textquoteright s and below for the Bottom 30\% of the class; and B\textquoteright s for the students in between. A+ will be reserved for the best 3 students in the class. \\
+ 
+ \noindent \textbf{Letters of Recommendation:} Letters of recommendation will be reserved for the Top 3 students in the class. \\
+
+\noindent \textbf{Out of class collaboration:} You are encouraged to work in groups of 2 or 3 students for each of the problem sets and submit one set of solutions per group. The groups are allowed to change over time.  \\ 
+
+\noindent \textbf{Class Schedule:} We will meet Monday and Wednesday from 4:10 PM to 5:25 PM at 503 Hamilton Hall. Our first lecture is on Tuesday, January 22th. Our last lecture will be on Tuesday, April 30th.\\
+
+
+\noindent \textbf{Midterm and Final Exam:}  The midterm examination will be held on Thursday, March 14th (before spring break). The final exam is determined by the university and it will take place between May 10th and May 17th. I will only consider out-of-schedule examinations under the following cases:
+
+\begin{enumerate}[a)]
+\item A documented medical excuse.
+\item A university sponsored event such as an athletic tournament, a play, or a musical performance. In this case, please have your coach, conductor, or other faculty adviser contact the teacher assistant (TA) of this course. Athletic practices and rehearsals do not fall into this category. 
+
+\item A religious holiday.
+
+\item Extreme hardship such as a family emergency.
+
+\end{enumerate}
+
+\noindent If you require additional accommodations as determined by the Disability Services of Columbia University, please let the TA of the course know as soon as possible.\\
+
+\noindent \textbf{E-mail Policy:} To guarantee that you get prompt response to your questions, I will ask you to help me with four things: 
+\begin{enumerate}
+\item Please cc my assistant in any inquiry (Blanca Avenda\~no; \texttt{bavendanohdez@gmail.com}). 
+\item Start the subject of each e-mail with \texttt{TS4413}. For example, if you want to know about additional support material for the class use the subject ``\texttt{TS4413:Support material}\textquotedblright.
+\item I typically respond e-mails between 1130am and 1230pm every day.  This means that if you want to get a same day reply, you are very likely to get one if you write around this time window. If not, you will have to wait.   
+
+\item If you have questions about the material covered in class, also cc the TA (Nathaniel Mark \texttt{ndm2125@columbia.edu}).
+\end{enumerate}
+   
+
+\noindent \textbf{Office hours:} I will hold office hours by appointment, typically after class on Tuesdays.   \\
+
+\noindent \textbf{Course Materials:} The course materials will be available through my GitHub
+
+\begin{center}
+\texttt{https://github.com/jm4474/Courses-TimeSeries-Undergraduate}
+\end{center}
+
+
+\newpage
+
+
+\textbf{Course Outline}\\
+
+
+\begin{enumerate}
+%\item {\scshape The Mathematical Statistics Framework} (1 lecture/.5 week)
+%
+%\begin{itemize}
+%\item What is a \emph{statistical model}? What does it mean to \emph{estimate} a parameter? What does it mean to \emph{test} a statistical hypothesis? What does it mean to construct a \emph{confidence interval} for a paramter? \\
+%
+%\textbf{Recommended Reading:} Lecture Notes
+%
+%\end{itemize}
+
+
+\item  {\scshape The basics of Time Series Analysis} (4 lectures/ 1 week)
+
+\begin{itemize}
+
+\item {What is a Time Series? What is a Time Series model? What do we use Time Series Models for? What is temporal dependence? What is autocorrelation? What is the autocovariance function of a time series model?} What is a Stationary Time Series model? What is a moving average model of order $q$? \\
+
+\textbf{Recommended Reading:} ITSF Chapters 1.1, 1.2, 1.3, 1.4.\\
+
+\item Introduction to Python/Matlab. 
+   
+\end{itemize}  
+
+\item {\scshape (Appendix) The Law of Large Numbers and the Central Limit Theorem} (2 lectures/ 1 week)
+
+\begin{itemize}
+
+\item What is the Law of Large Numbers? How do we use the Law of Large Numbers to approximate the expectation of a random variable? What is the Central Limit Theorem? How do we use the Central Limit Theorem to assess the quality of approximations based on the Law of Large Numbers? How do we use the LLN to approximate the autocovariance function of a time series model?\\
+
+\textbf{Recommended Reading:} Read the function file \texttt{GaussianMAq.m} to understand how to use the law of large numbers to approximate the autocovariance function of a moving average process.\\
+
+\end{itemize}
+  
+\item {\scshape{Linear Processes}} (4 lectures/ 1.5 weeks)
+
+\begin{itemize}
+\item What is a Linear Process? What is the impulse-response function of a linear process? What is the autocovariance function of a linear process? What is a causal linear process? Why do we say that autoregressive models are causal linear processes? What are the IRF coefficients of an autoregressive model? \\
+
+\textbf{Recommended Reading:} ITSF Chapters 2.2, 2.3 and Lecture Notes.\\
+
+%(Digression: Frisch\textquoteright s rocking-horse model)  \\
+
+%\item How general are the MA($\infty$) models? The Wold Decomposition. \\
+
+
+\end{itemize}
+
+
+\item {\scshape Maximum Likelihood Estimation} (2 lectures/ 1 week)
+
+\begin{itemize}
+\item What is the Maximum Likelihood Estimation routine? How do we estimate the parameters of an MA(1) model using maximum likelihood? How do we estimate an AR(1) model using Maximum Likelihood?   \\
+
+\textbf{Recommended Reading:} Lecture Notes \\
+\end{itemize}
+
+\item {\scshape The Parametric Bootstrap} (2 lectures / .5 weeks)
+
+\begin{itemize}
+\item What is the parametric bootstrap and how is it used to assess the precision of a Maximum Likelihood estimator? How do we implement a parametric bootstrap for a Gaussian autoregressive model?   \\
+
+\textbf{Recommended Reading:} Lecture Notes \\
+\end{itemize}
+
+\item {\scshape Forecasting with an AR(p) model} (4 lectures / 2 weeks)
+
+\begin{itemize}
+\item How do we use an autoregressive model to forecast a random variable like GDP?    \\
+
+\textbf{Recommended Reading:} Lecture Notes \\
+\end{itemize}
+
+\item {\scshape A primer on Model Selection} (2 lectures / 1 week)
+
+\begin{itemize}
+\item What is model selection? What is the Bayes Information Criterion? What is the Akaike information criterion? What does it mean to have a model selection procedure that is consistent?   \\
+
+\textbf{Recommended Reading:} Lecture Notes \\
+
+\end{itemize}
+
+ 
+\item {\scshape A primer on Bayesian Analysis} (2 lectures / 1 week)
+
+\begin{itemize}
+\item Bayesian analysis of a parametric model: what is it? How do we think about Bayesian Analysis in the context of a simple linear regression model? What does it mean to say that Bayesian analysis leads to shrinkage? What does it mean to say that Bayesian analysis leads to regularization?\\
+
+\textbf{Recommended Reading:} Lecture Notes \\
+
+\end{itemize}
+
+
+\end{enumerate}
+
+
+\newpage
+
+\end{document}
+
+
