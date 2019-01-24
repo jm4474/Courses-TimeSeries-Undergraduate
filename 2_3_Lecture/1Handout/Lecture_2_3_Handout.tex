@@ -1,0 +1,115 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lecture 3}
+\date{}
+\maketitle
+
+\section{Main Definitions}
+
+\textbf{Definition 1:} The \underline{mean function} of a real-valued time series is the function
+\[ \mu_{X}: T \rightarrow \mathbb{R} \]
+defined by:
+\[ \mu_{X}(t) \equiv E[X_t]\]
+
+The mean function is one of the features of a time series model that allows us to understand how the marginal distributions of a time series changes over time.  \\
+
+
+\noindent \textbf{Definition 2:} Two random variables $X,Y$ with a joint p.d.f. $f(x,y)$ are \underline{independent }if the joint p.d.f. $f$ can be written as:
+\[ f(x,y) = f_1(x) f_2(y)  \]  
+where $f_1$ and $f_2$ are two non-negative functions that integrate to one. Two random variables are said to be \emph{dependent} if they are not independent. \\
+
+\noindent Here are some properties of independent random variables: \\
+
+\noindent \textbf{Claim:} For any sets $A, B$ 
+\[ \mathbb{P} (X \in A \textrm{ and } Y \in B) = \mathbb{P} (X \in A) \mathbb{P} (Y \in B)   \]
+
+\noindent Proof:
+
+\begin{eqnarray*}
+\mathbb{P} (X \in A \textrm{ and } Y \in B) &=& \int_{A} \left( \int_{B}  f(x,y) dy \right) dx \\
+&= & \int_{A} \left( \int_{B}  f_1(x) f_2(y) dy \right) dx \\
+&=&  \int_{A} \left( \int_{B}   f_2(y) dy \right)  f_1 (x) dx \\
+&=& \mathbb{P} (X \in A) \mathbb{P} (Y \in B).
+\end{eqnarray*}
+
+This means that the product of any joint event, can be written as the product of the marginal events.  \\
+
+\textbf{Corollary:} $\mathbb{P}(X \in A | Y \in B) = \mathbb{P}(X \in A)$ \\
+
+How do we know if two random variables are dependent? Well, based on the definition above this means that all we need to do is find a set $A$ and a set $B$ for which:
+
+\[ \mathbb{P}(X \in A | Y \in B) \neq \mathbb{P}(X \in A) \]
+
+Computing conditional probabilities is difficult. But here is a trick we can use. Remember that for any two random variables $X$ and $Y$ the covariance is defined as:
+
+\[ \textrm{Cov}(X,Y) \equiv E [ (X-\mu_x)(Y-\mu_y) ]  \]
+
+
+\noindent \textbf{Claim:} If $(X, Y)$ are independent then $\textrm{Cov}(X,Y)=0$.  \\
+
+
+\noindent Proof: For any functions $g,h$:\\
+\begin{eqnarray*}
+E[ g(x) h(y) ] &=& \int_{\mathbb{R}} \left( \int_{\mathbb{R}} g(x) h(y) f(x,y) dx \right) dy \\
+&=& \int_{\mathbb{R}} \left( \int_{\mathbb{R}} g(x) h(y) f_1(x) f_{2}(y) dx \right) dy \\
+&=& \int_{\mathbb{R}} \left( \int_{\mathbb{R}} g(x)  f_1(x)  dx \right) h(y) f_{2}(y) dy \\
+&=& E[ g(x) ] E[h(y)]
+\end{eqnarray*}
+Taking $g(x)=x -\mu_x$ completes the proof, as $E[x-\mu_x]=0$.  \\
+
+
+This means that in order to show that two random variables are not independent, it suffices to find a non-zero covariance. Thus, the covariance can give us some superficial and preliminary glimpse into the dependence embedded in a time series model.  \\
+
+
+	
+Let us compute the covariance function for the cosine model. Note that:
+
+\begin{eqnarray*}
+\gamma_{X} (r,s) &=& \mathbb{E}  [ (X_r - \mu_X(r)) (X_s - \mu_X(s))    ]   \\
+&=& E [ \varepsilon_{r} \varepsilon_s ] \\
+&=& 0
+\end{eqnarray*}
+
+In general, zero covariance does not imply independence (remember this?). However, if the joint distribution is normal, then it does. \\
+
+Complement these notes with Section 1.4 in the book. 
+
+\end{document}
+
+\newpage
+
+Let us introduce a less boring model. Suppose that you have 
+\[ P ( \varepsilon_{t} = 1) = 1/2 \quad P ( \varepsilon_{t} = -1) = 1/2 \]
+
+Consider the model:
+
+\[ X_t = \sum_{j=1}^{t} \varepsilon_t \]
+
+Let us do the same thing that we did before. Let us first analyze the marginals and then simulate it. \\
+
+What is the mean function? What is the covariance function?\\
+
+
+\noindent \textbf{Definition 3:} A times series is \underline{weakly stationary} if \\
+
+i) The mean function does not depend on $t$ \\
+
+ii) $\gamma_{X}(t+h,t)$ is independent of $t$ for each $h$. \\
+
+This means that if $X$ is a stationary model we can write the autocovariance function as a function of $h$ only:
+
+\[ \gamma_{X}(h) \equiv \gamma_{X} (t+ h, t) = E[(X_{t+h} - \mu)(X_t - \mu) ]\]
+
+How do we estimate the mean function and the autocovariance function of a time series.
+
+
+
+
+
+\end{document}
