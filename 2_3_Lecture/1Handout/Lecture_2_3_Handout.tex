@@ -85,80 +85,19 @@ Let us compute the covariance function for the cosine model. Note that:
 
 In general, zero covariance does not imply independence (remember this?). However, if the joint distribution is normal, then it does. \\
 
-Complement these notes with Section 1.4 in the book. 
+Complement these notes with Section 1.4 in the book. \\
 
-\end{document}
-
-\newpage
-
-Let us introduce a less boring model. Suppose that you have 
-\[ P ( \varepsilon_{t} = 1) = 1/2 \quad P ( \varepsilon_{t} = -1) = 1/2 \]
-
-Consider the model:
-
-\[ X_t = \sum_{j=1}^{t} \varepsilon_t \]
-
-Let us do the same thing that we did before. Let us first analyze the marginals and then simulate it. \\
-
-What is the mean function? What is the covariance function?\\
-
-
-\noindent \textbf{Definition 3:} A times series is \underline{weakly stationary} if \\
+\noindent \textbf{Definition 4:} A times series model is \underline{weakly stationary} if \\
 
 i) The mean function does not depend on $t$ \\
 
-ii) $\gamma_{X}(t+h,t)$ is independent of $t$ for each $h$. \\
+ii) The covariance function $\gamma_{X}(t,t+h)$ is independent of $t$ for each $h$. \\
 
-This means that if $X$ is a stationary model we can write the autocovariance function as a function of $h$ only:
-
-\[ \gamma_{X}(h) \equiv \gamma_{X} (t+ h, t) = E[(X_{t+h} - \mu)(X_t - \mu) ]\]
-
-How do we estimate the mean function and the autocovariance function of a time series.
-
-
-	
-Let us compute the covariance function for the cosine model. Note that:
-
-\begin{eqnarray*}
-\gamma_{X} (r,s) &=& \mathbb{E}  [ (X_r - \mu_X(r)) (X_s - \mu_X(s))    ]   \\
-&=& E [ \varepsilon_{r} \varepsilon_s ] \\
-&=& 0
-\end{eqnarray*}
-
-In general, zero covariance does not imply independence (remember this?). However, if the joint distribution is normal, then it does. \\
-
-Complement these notes with Section 1.4 in the book. 
-
-\end{document}
-
-\newpage
-
-Let us introduce a less boring model. Suppose that you have 
-\[ P ( \varepsilon_{t} = 1) = 1/2 \quad P ( \varepsilon_{t} = -1) = 1/2 \]
-
-Consider the model:
-
-\[ X_t = \sum_{j=1}^{t} \varepsilon_t \]
-
-Let us do the same thing that we did before. Let us first analyze the marginals and then simulate it. \\
-
-What is the mean function? What is the covariance function?\\
-
-
-\noindent \textbf{Definition 3:} A times series is \underline{weakly stationary} if \\
-
-i) The mean function does not depend on $t$ \\
-
-ii) $\gamma_{X}(t+h,t)$ is independent of $t$ for each $h$. \\
-
-This means that if $X$ is a stationary model we can write the autocovariance function as a function of $h$ only:
+\noindent \underline{Comment:} Therefore in a stationary model we can write the autocovariance function in terms of $h$ only:
 
 \[ \gamma_{X}(h) \equiv \gamma_{X} (t+ h, t) = E[(X_{t+h} - \mu)(X_t - \mu) ]\]
 
-How do we estimate the mean function and the autocovariance function of a time series.
 
-
-
-
+\noindent We will refer to $\gamma_{X}(h)$  \textbf{as the h-th order autocovariance.} \\
 
 \end{document}
