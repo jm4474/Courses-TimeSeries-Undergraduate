@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  24 JAN 2019 12:58
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  29 JAN 2019 14:09
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -118,7 +118,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 67--68
  []
 
 [2]
-Underfull \hbox (badness 10000) in paragraph at lines 79--80
+Underfull \hbox (badness 10000) in paragraph at lines 86--87
 
  []
 
@@ -130,7 +130,7 @@ Underfull \hbox (badness 10000) in paragraph at lines 79--80
 Here is how much of TeX's memory you used:
  571 strings out of 493089
  6601 string characters out of 6134842
- 57661 words of memory out of 5000000
+ 58661 words of memory out of 5000000
  4104 multiletter control sequences out of 15000+600000
  11542 words of font info for 45 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -148,7 +148,7 @@ b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmti10.pfb
 ></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10
 .pfb></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/ms
 bm7.pfb>
-Output written on Lecture_2_3_Handout.pdf (3 pages, 111443 bytes).
+Output written on Lecture_2_3_Handout.pdf (3 pages, 113224 bytes).
 PDF statistics:
  62 PDF objects out of 1000 (max. 8388607)
  44 compressed objects within 1 object stream

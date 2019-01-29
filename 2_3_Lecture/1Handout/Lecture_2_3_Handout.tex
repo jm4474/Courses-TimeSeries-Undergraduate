@@ -6,7 +6,7 @@
 \begin{document}
 \onehalfspace
 
-\title{Lecture 3}
+\title{Lecture 2-3}
 \date{}
 \maketitle
 
@@ -65,6 +65,55 @@ Taking $g(x)=x -\mu_x$ completes the proof, as $E[x-\mu_x]=0$.  \\
 
 
 This means that in order to show that two random variables are not independent, it suffices to find a non-zero covariance. Thus, the covariance can give us some superficial and preliminary glimpse into the dependence embedded in a time series model.  \\
+
+\noindent \textbf{Definition 3:} The \underline{covariance function} of a real-valued time series is the function:
+\[ \gamma_{X}: T \times T \rightarrow \mathbb{R} \]
+defined by:
+\[ \gamma_{X}(s,t) \equiv \textrm{Cov} ( X_s, X_t )\] 
+
+\noindent The \underline{autocorrelation function} is simply defined as
+
+\[  \rho_{X}(r,s) = \gamma_X(r,s) / \sqrt{\gamma_{X}(r,r)} \sqrt{\gamma_{X}(s,s)}   \]
+
+Let us compute the covariance function for the cosine model. Note that:
+
+\begin{eqnarray*}
+\gamma_{X} (r,s) &=& \mathbb{E}  [ (X_r - \mu_X(r)) (X_s - \mu_X(s))    ]   \\
+&=& E [ \varepsilon_{r} \varepsilon_s ] \\
+&=& 0
+\end{eqnarray*}
+
+In general, zero covariance does not imply independence (remember this?). However, if the joint distribution is normal, then it does. \\
+
+Complement these notes with Section 1.4 in the book. 
+
+\end{document}
+
+\newpage
+
+Let us introduce a less boring model. Suppose that you have 
+\[ P ( \varepsilon_{t} = 1) = 1/2 \quad P ( \varepsilon_{t} = -1) = 1/2 \]
+
+Consider the model:
+
+\[ X_t = \sum_{j=1}^{t} \varepsilon_t \]
+
+Let us do the same thing that we did before. Let us first analyze the marginals and then simulate it. \\
+
+What is the mean function? What is the covariance function?\\
+
+
+\noindent \textbf{Definition 3:} A times series is \underline{weakly stationary} if \\
+
+i) The mean function does not depend on $t$ \\
+
+ii) $\gamma_{X}(t+h,t)$ is independent of $t$ for each $h$. \\
+
+This means that if $X$ is a stationary model we can write the autocovariance function as a function of $h$ only:
+
+\[ \gamma_{X}(h) \equiv \gamma_{X} (t+ h, t) = E[(X_{t+h} - \mu)(X_t - \mu) ]\]
+
+How do we estimate the mean function and the autocovariance function of a time series.
 
 
 	
