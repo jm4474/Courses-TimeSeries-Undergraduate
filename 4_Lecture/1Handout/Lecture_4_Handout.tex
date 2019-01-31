@@ -1,0 +1,95 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lecture 4}
+\date{}
+\maketitle
+
+\section{What is a statistical model?}
+
+
+Let $X$ be a random variable (or a collection of them). $X$ can represent cross-sectional, time series, or panel data. A \emph{statistical model for} $X$ is collection of different probability distributions indexed by $\theta$: 
+\[ \{P_{\theta}\}_{\theta \in \Theta}. \] 
+
+\noindent A time series model is a \emph{statistical model} for time series data. 
+
+A time series model for time series data
+\[ \{X_t\}_{t \in T} \]
+is said to be \emph{strongly stationary} if the distribution of any collection 
+\[ (X_{t}, X_{t+h_1}, \ldots, X_{t+h_k}) \]
+does not depend on $t$.
+A strongly stationary time series model is \emph{weakly stationary}, but not the other way around.  
+
+
+\section{A non-stationary model}
+
+\begin{enumerate}
+
+\item Consider the model 
+
+\[ X_t = \sum_{j=1}^{t} \epsilon_j \]
+
+where $\epsilon_t$ are mean 0, variance $\sigma$, uncorrelated random variables.\footnote{Time series with these properties are usually referred to as white noise} Is this model stationary? Answer: No. This is why:
+
+\begin{eqnarray*}
+X_1&=&\epsilon_1 \\
+X_2&=& \epsilon_1+ \epsilon_2 \\
+X_3&=& \epsilon_1 + \epsilon_2 + \epsilon_3 \\
+\end{eqnarray*}
+
+Consquently
+
+\[ Cov(X_1,X_2) = Cov(\epsilon_1,\epsilon_1) = \sigma^2, \]
+
+but,
+
+\[ Cov(X_2,X_3) = Cov(\epsilon_1+\epsilon_2,\epsilon_1+\epsilon_2) = 2 \sigma^2. \]
+
+\end{enumerate}
+
+
+\section{Example of weakly stationary models: Gaussian MA(1)}
+
+For $t=1,2, \ldots, T$ consider:
+
+\[X_t = \theta_0 \epsilon_t + \theta \epsilon_{t-1},\]
+
+\noindent where $\epsilon_{t} \sim \mathcal{N}(0,\sigma^2)$. The mean function is
+\begin{equation}
+E[X_t]=0 \quad \textrm{for all } t
+\end{equation}
+And the first order autocovariance is:
+
+ \[ Cov(X_{t},X_{t+1}) = Cov(\theta_0\epsilon_{t} + \theta_1 \epsilon_{t-1}, \theta_0 \epsilon_{t+1} + \theta_1 \epsilon_{t}),  \]
+
+\noindent which equals $\theta_0 \theta_1 \sigma^2$ and does not depend on $t$.
+
+How about $\gamma_X(h)$ for $h>1$? Algebra shows that
+
+\[ Cov(X_t, X_{t+h}) = 0.\]
+
+\noindent Therefore, the covariance function is given by:
+
+\[
+\gamma_X(h) = \left\{
+\begin{array}{ccc}
+ (\theta_0^2 + \theta_1^2) \sigma^2  & \textrm { if }  & h=0   \\
+\theta_0 \theta_1 \sigma^2  & \textrm{ if }  & h=1  \\
+0  & \textrm{ if }  &  h>1.  
+\end{array}
+\right.
+\]
+
+\noindent Check the jupyter notebook that we used in class and see if the simulated autocovariance function matches our derivation. 
+
+
+
+
+
+
+\end{document}
