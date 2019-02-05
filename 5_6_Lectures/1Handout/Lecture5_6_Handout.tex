@@ -1,0 +1,209 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage[utf8x]{inputenc}
+\usepackage{amssymb,amsmath}
+
+\begin{document}
+\onehalfspace
+
+\title{Lectures 5-6}
+\date{}
+\maketitle
+
+
+This week we will cover two important theorems: the Law of Large Numbers (LLN) and the Central Limit Theorem (CLT). You have probably heard about these two theorems before, at least in the context of i.i.d. data. Today I will re-state the theorems for you (and mention how they extend to our time series framework).\\
+
+%Commented out on Feb 5, 2019
+%{\scshape Examples:} To illustrate the results discussed today I will be using the script that I uploaded with the material for last lecture. I will also talk (between now and next Wednesday) about a the matlab file called a \underline{function}.  We will write a Matlab function that approximates the autocovariance function of a Gaussian MA($q$) model, and we will use it to understand the theoretical results presented today. 
+
+%Commented out on Feb, 2018.
+%3) Finally, I will introduce the definition of (population) k-th impulse response coefficient. \\
+
+%(Pose the question can I recover the impulse response coefficients from the covariance function)
+ 
+%In terms of readings. Next week we will start with Chapter 2. We will skip the first section and we will go directly to 2.2. 
+ 
+%The material that I am covering is preliminary. 
+
+
+%Commented out on Feb 5, 2019.
+%The concepts we will cover today are technically demanding, but we will use them throughout the semester. So ask questions in class if there is anything unclear.  
+
+
+
+\newpage
+
+\section{LLN and CLT for i.i.d. data}
+
+
+\subsection{LLN}
+
+\textbf{Definition 1:} A sequence of real-valued random variables $\widehat{\mu}_T$ \underline{converges in probability} to a constant $\mu$ if for any $\epsilon>0$
+\[ P ( | \widehat{\mu}_T - \mu | > \epsilon ) \rightarrow 0 \] 
+as $T\rightarrow \infty$. We denote convergence in probability as:
+\[ \widehat{\mu}_T \overset{p}{\rightarrow} \mu. \]
+
+
+%\noindent \textbf{Definition 2:}  Let $\widehat{\mu}_{T}$ be an estimator for a parameter $\mu$ based on a sample $\{X_1,X_2, \ldots, X_{T}\}$. The estimator is said to be \underline{consistent} for $\mu$ if:
+%\[ \widehat{\mu}_{T} \overset{p}{\rightarrow} \mu.  \]
+
+ 
+\noindent \textbf{Theorem (Law of Large numbers for i.i.d. data)}: Let $\{X_1, X_2, \ldots\}$ be a collection of i.i.d. random variables each with distribution $P$ and let $\mu \equiv E_{P}[X_t]$. If $E(|X_t|)<\infty$   then:
+\[ \frac{1}{T} \sum_{t=1}^{T} X_t  \overset{p}{\rightarrow} \mu. \]
+
+\noindent That is, the \underline{sample mean} is `consistent’ for the \underline{population mean}, $E_{P}[X_t]$.\footnote{A proof of this result can be found on Theorem 22.1 of the book ``Probability and Measure” [1995] by Patrick Billingsley.} \\
+
+\noindent The result might look a bit abstract, but we will have a very concrete use for the LLN: approximation of population means. \\ 
+
+\noindent {\scshape Example 1:} We have already computed the autocovariance function of the Gaussian MA(1) model: $X_t = \epsilon_t + \theta \epsilon_{t-1}, \epsilon_{t}$ i.i.d. $(0,\sigma^2)$. We have shown that $\gamma(0)=(1+\theta^2) \sigma^2$, $\gamma(1)=\theta \sigma^2$, and the rest of the function is zero.  Since 
+\[\gamma(1) = \textrm{Cov}(X_t, X_{t+1}) = \mathbb{E}[X_t X_{t+1}] - \mathbb{E}[X_t] \mathbb{E}[X_{t+1}],\]
+we could generate $I$ draws from $X_t, X_{t+1}$ using the Gaussian MA(1) model. Denote these draws as $X_{t}(i), X_{t+1}(i)$, respectively. The law of large numbers suggests that
+\[ \frac{1}{I} \sum_{i=1}^{I} X_{t}(i) X_{t+1}(i) \overset{p}{\rightarrow} \mathbb{E}[ X_t X_{t+1} ]   \]
+ 
+\noindent {\scshape Example 2:} Suppose that $X \sim \mathcal{N}(\theta,1)$ for some $\theta \in \mathbb{R}$. How would you use Python to approximate the mean of $E_{\theta}[ \exp (X) ]$? If you are a Matlab user, run the first two sections of the script \texttt{Example 1.m} to see how we can apply the LLN to approximate $E_{\theta}[ \exp (X) ]$? \\
+ 
+\subsection{CLT} 
+
+\textbf{Definition 2:} A sequence of real-valued random variables $\widehat{\mu}_{T}$ \underline{converges in distribution} to a random variable $Z$ with distribution $\mathbb{P}$ if for any $x \in \mathbb{R}$:
+\[ P( \widehat{\mu}_T  \leq x) \rightarrow \mathbb{P}( Z \leq x )   \]
+as $T \rightarrow \infty$. We denote convergence in distribution as:
+$$ \mu_{T} \overset{d}{\rightarrow} Z $$
+
+\noindent \textbf{Theorem (Central Limit Theorem for i.i.d data)}:  Let $\{X_1, X_2, \ldots\}$ be a collection of i.i.d. random variables each with distribution $P$ and let $\mu \equiv V_{P}[X_t] \equiv \sigma^2 < \infty$. Then:
+\[ \sqrt{T} \Big( \frac{1}{T} \sum_{t=1}^{T} X_t - \mu \Big)    \overset{d}{\rightarrow} N(0,\sigma^2), \]
+This means that the approximation error between the \emph{sample mean} and the \emph{population mean} is random, and approximately $N(0, \sigma^2 / \sqrt{T})$.\footnote{The statement of this result can be found in Theorem 27.1 in Billingsley’s ``Probability and measure’’.} \\
+
+\noindent Thus, in a way, the Central Limit Theorem tell us how good (or bad) a LLN-type approximation with $T$ i.i.d draws is. More specifically, the CLT usually allow us to conclude that 
+
+\[ \widehat{\mu}_{T} \textrm{ approx } \mathcal{N}(\mu, \sigma^2).\]
+
+\noindent This means that with 95\% probability the population mean is in between 
+$$ \frac{1}{T} \sum_{t=1}^{T} X_t  \pm 2 \frac{\sigma}{\sqrt{T}} $$
+
+\noindent {\scshape Example 1:} We suggested to estimate $Cov(X_t,X_{t+1})$ as 
+\[ \frac{1}{I} \sum_{i=1}^{I} X_{t}(i) X_{t+1}(i). \]
+
+\noindent We know that the true covariance is $5$. This means that by the CLT
+
+\[  \sqrt{I} \left( \frac{1}{I} \sum_{i=1}^{I} X_{t}(i) X_{t+1}(i) - 5 \right) \]
+
+\noindent is approximately a normal distribution. How would you check this in the computer?\\
+
+
+\noindent {\scshape Example 2:} Run the last sections of the script \texttt{Example 1.m} to see how CLT is used to provide a confidence interval for the population mean.  \\
+
+\newpage
+
+\section{LLN and CLT for weakly stationary data}
+
+\subsection{LLN}
+The first question that we want to ask is whether the LLN also obtains in the presence of \underline{time series correlation}. We make this argument for the MA($1$) model so that you get some intuition. The generalization to MA($q$) models is straightforward. 
+
+%The generalization to MA($\infty$) processes is true, but the argument is a bit more elaborated (and it actually uses the summability of the IRF coefficients!).\\
+
+Consider the following MA(1) model with i.i.d. noise :
+
+\[ X_t = \mu + \theta_0 \epsilon_{t} + \theta_1 \epsilon_{t-1}, \quad E[\epsilon_t]=0 \quad E[\epsilon_t^2]=\sigma^2. \]
+
+
+The argument goes as follows:
+
+\begin{eqnarray*}
+\frac{1}{T} \sum_{t=1}^{T} X_t -\mu&=& \frac{1}{T} \sum_{t=1}^{T} (\mu + \theta_0 \epsilon_t + \theta_0 \epsilon_{t-1}) - \mu\\
+&&\textrm{(using the MA(1) assumption)}\\
+&=& \frac{1}{T} \sum_{t=1}^{T} (\theta_0 \epsilon_t + \theta_1 \epsilon_{t-1}) \\
+&=& \theta_0  \frac{1}{T} \sum_{t=1}^{T}  \epsilon_t + \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1}\\
+\end{eqnarray*}
+Therefore, for any $\epsilon>0$
+
+\begin{eqnarray*}
+P \left( \left | \frac{1}{T} \sum_{t=1}^{T} X_t -\mu \right| > \epsilon \right) &=& P \left( \left |  \theta_0\frac{1}{T}\sum_{t=1}^{T}  \epsilon_t + \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \epsilon \right) \\
+&\leq & P \left( \left |  \theta_0\frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right |  +\left | \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \epsilon \right)\\
+&& \textrm{(since the triangle ineq. implies that whenever} \\
+&&\textrm{$|x+y|>\epsilon$ then $|x|+|y|>\epsilon)$ }
+\end{eqnarray*}
+Moreover:
+
+\[ P \left( \left |  \theta_0\frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right |  +\left | \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \epsilon \right) \leq P \left( \left |\theta_0 \frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right | > \frac{\epsilon}{2}  \textrm {    or  } \left |\theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \frac{\epsilon}{2} \right)  \]
+
+As the only way in which 
+
+\[\left |  \theta_0\frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right |  +\left | \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \epsilon\]
+
+\noindent can happen is if either:
+
+\[\left |\theta_0 \frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right | > \frac{\epsilon}{2}  \textrm {    or  } \left |\theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \frac{\epsilon}{2}.\] 
+
+\noindent Finally, note that 
+
+\[ P \left( \left |\theta_0 \frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right | > \frac{\epsilon}{2}  \textrm {    or  } \left |\theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \frac{\epsilon}{2} \right)  \]
+
+is less than or equal:
+
+\[ P \left( \left |\theta_0 \frac{1}{T}\sum_{t=1}^{T}  \epsilon_t \right | > \frac{\epsilon}{2} \right) +  P \left( \left |\theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \right| > \frac{\epsilon}{2} \right),  \]
+
+\noindent As for any events A and B, $P(A \textrm{ or } B)$ is smaller than $P(A) + P(B)$. Since both of these probabilities become arbitrarily small as $T$ grows large, then we conclude that:
+
+\[ P \left( \left | \frac{1}{T} \sum_{t=1}^{T} X_t -\mu \right| > \epsilon \right) \rightarrow 0. \]
+
+\noindent {\scshape Main Take Away from this algebra:} The Law of Large numbers will hold even under some time series correlation. \\
+
+
+
+\noindent \textbf{Theorem (Laws of Large Numbers for MA(q) data):} Suppose $\{X_t\}$ is an MA($q$) process with i.i.d. noise $\varepsilon_{t}$ ($\mathbb{E}[\varepsilon_{t}] = 0, \mathbb{V}[\varepsilon_{t}] = \sigma^2 $). Then:
+
+\begin{eqnarray*}
+\frac{1}{T} \sum_{t=1}^{T} X_t &\overset{p}{\rightarrow}& E[X_t] \\
+\frac{1}{T} \sum_{t=1}^{T-h} X_{t+h} X_{t} &\overset{p}{\rightarrow}& E[X_{t+h} X_t] \\
+\frac{\frac{1}{T} \sum_{t=1}^{T-h} X_{t+h} X_{t}}{\frac{1}{T} \sum_{t=1}^{T} X^2_{t}} &\overset{p}{\rightarrow}& \frac{E[X_{t+h} X_t]}{E[X_t^2]} 
+\end{eqnarray*}
+
+\noindent This means that the ``sample mean\textquotedblright, ``sample covariances\textquotedblright, and  ``sample autocorrelations\textquotedblright\:of a MA(q) processes will be consistent for their ``population\textquotedblright \:counterparts. Over the next lectures I will provide references for this result (for example, Theorems 3.4 and 3.7 in the Annals of Statistics paper of Peter Phillips and Victor Solo: ``Asymptotics for Linear Processes’’). 
+
+\newpage
+
+\subsection{CLT}
+
+Time series dependence does not really compromise the consistency property of sample averages of MA(q) processes. How about the accuracy of the approximation? We have already argued that if we have data:
+\[ \{X_1, X_2, \ldots, X_n\} \]
+with no temporal dependence, then the CLT implies that:
+\[ \frac{1}{T} \sum_{t=1}^{T} X_t \approx \mathcal{N} \left( E[X_t] , \frac{\textrm{Var}(X_t)}{T} \right) \] 
+
+\noindent Do we get a similar approximation for the sample mean if $X_t$ exhibits time series dependence? \\
+
+To get some intuition for the main result, consider the Gaussian MA(1) model that we discussed before, but normalize $\theta_0=1$:
+\[X_t =\mu + \epsilon_{t} + \theta_1 \epsilon_{t-1}, \quad \epsilon_t  \sim \mathcal{N}(0,\sigma^2). \]  
+
+Note that the \underline{standard i.i.d.} Central Limit Theorem approximation would imply that:
+
+\[ \frac{1}{T} \sum_{t=1}^{T} X_t \approx \mathcal{N} \left( 0 , \frac{(1+\theta_1^2)\sigma^2}{T} \right).\]
+
+However:
+
+\begin{eqnarray*}
+\frac{1}{T} \sum_{t=1}^{T} X_t &\sim& \mu + \frac{1}{T} \sum_{t=1}^{T}  (\epsilon_t + \theta_1 \epsilon_{t-1})  \\
+&=& \mu+  \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t} + \theta_1 \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1}.
+\end{eqnarray*}
+ 
+Since:
+
+\[\begin{pmatrix} \frac{1}{T} \sum_{t=1}^{T} \epsilon_t \\ \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t-1} \end{pmatrix} \sim \mathcal{N} \left( \begin{pmatrix} 0 \\ 0 \end{pmatrix}, \frac{1}{T} \begin{pmatrix} \sigma^2 & (1-(1/T)) \sigma^2  \\ (1-(1/T)) \sigma^2& \sigma^2 \end{pmatrix}  \right), \]
+
+\noindent then:
+
+\[ \frac{1}{T} \sum_{t=1}^{T} X_t \sim \mathcal{N} \left( \mu , \frac{(1+\theta_1^2 + 2 \theta_1)\sigma^2}{T} + o(1)\right).\]
+
+This means that the approximation error for the MA(1) model will not coincide with the typical approximation error (and the difference between the standard i.i.d. approximation and the variance that shows up in the true distribution can be positive or negative). The intuition is that not only the variance of $X_t$ influences the approximation error, but also the first-order covariance.
+
+How general is this result? We can show---see section 2.4 in the book---that in general if $X_t$ is an MA(q) process the sample mean is approximately distributed as:
+
+\[ \mathcal{N} \left( E[X_t] , \frac{\textrm{Var}(X_t) + 2 \sum_{j=1}^{q} \gamma(j)} {T} \right) \] 
+
+The term:
+
+ \[ \textrm{Var}(X_t) + 2 \sum_{j=1}^{q} \gamma(j), \]
+ 
+\noindent which equals $\sum_{j=-\infty}^{\infty} \gamma(j)$ is referred to as the \underline{long-run variance} of $X_t$. 
+
+
+\end{document}
