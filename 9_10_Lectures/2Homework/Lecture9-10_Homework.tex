@@ -1,0 +1,64 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Homework 1 (Lecture 9-10)}
+\date{}
+\maketitle
+
+\section{The AR(1) model}
+
+Consider the linear process given by:
+
+\begin{equation}
+X_t = \sum_{j=0}^{\infty} \theta^j \varepsilon_{t-j}, 
+\end{equation}
+
+\noindent where $\{\epsilon_{t}\}$ is a sequence of white noise with variance $\sigma^2$. This process is usually called the autoregressive model of order 1. \\ 
+
+\noindent \textbf{Question 1:} Compute the \underline{autocorrelation} function of the linear process $X_t$. \\
+
+\noindent \textbf{Question 2:} Show that the model above satisfies the \underline{auto regression}:
+\begin{equation}
+X_t = \theta X_{t-1} + \epsilon_{t}
+\end{equation}
+ 
+\noindent \textbf{Question 3:}  A Gaussian AR(1) is given by $(1)$ with $\varepsilon_{t} \sim \mathcal{N}(0,\sigma^2)$ i.i.d.  How could you generate random draws from a Gaussian AR(1) using Python? \\
+
+\noindent \textbf{Question 4 (Optional):} Show that if $|\theta| < 1$, then the impulse-response coefficients satisfy the summability condition discussed in lecture. \\
+
+\section{The AR(2) model}
+
+Consider the causal linear process that satisfies the equation:
+
+\begin{equation}
+X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \epsilon_{t}, 
+\end{equation}
+
+\noindent where $\{\epsilon_{t}\}$ is a sequence of white noise with variance $\sigma^2$. This process is usually called the autoregressive model of order 2.\\ 
+
+Following what we did in Lecture 8-9, I would like you to answer the following questions: \\
+
+
+\noindent \textbf{Question 1:} What are the IRF coefficients of the AR(2) model? In other words: what is the MA($\infty$) representation of the AR(2) model? \\
+
+
+
+\noindent \textbf{Question 2:} What is the autocovariance function of the AR(2) model? \\
+ 
+\noindent \textbf{Question 3 (Optional, try this question once you are done with all the HW):} What are the restrictions that $\phi_1$ and $\phi_2$ would need to satisfy in order for the IRF coefficients to be summable?
+ 
+ 
+\section{From ACF to IRFs}
+
+Suppose that I tell you that I used an MA(1) model with $\sigma^2=1$ to generate the following ACF:
+
+\[ \gamma(0)=1, \quad \gamma(1)= \frac{1}{2} \]
+
+Can you figure the combination of IRF coefficients that I used to generate this ACF? Are the IRF coefficients \underline{identified} from the ACF (that is; is there a unique combination of $\theta_0$ and $\theta_1$ that gives the ACF above?)
+
+\end{document}

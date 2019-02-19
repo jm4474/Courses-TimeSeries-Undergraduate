@@ -1,0 +1,198 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lecture 9-10}
+\date{}
+\maketitle
+
+
+\textbf{Definition} (Linear Process) A time series $X_t$ is a \underline{linear process} if it has the representation:
+\[ X_t = \sum_{j=-\infty}^{\infty} \theta_j \varepsilon_{t-j} \quad \forall \, t, \] 
+
+\noindent where $\varepsilon_t \sim \textrm{WN}(0,\sigma^2)$ and $\{ \theta_j \}$ is a sequence of constants satisfying the \emph{summability} condition:
+
+\[ \sum_{j=-\infty}^{\infty} |\theta_j| < \infty. \]
+
+\noindent The sequence $\{\theta_j\}$ is usually referred to as the \underline{impulse-response function} of the linear process $X_t$. The $j$-th element of the sequence is called the $j$-th impulse-response coefficient.  \\
+
+{\scshape Comment 1:} A linear process allows us to model the time series $X_t$ as the sum of \emph{uncorrelated random fluctuations} (the historical reference for this type of device in macroeconomics is Slutsky\textquoteright s random waves model). \\
+
+{\scshape Comment 2:} The term impulse-response comes from the fact that:
+
+\[ \frac{\partial X_{t+j} }{\partial \varepsilon_{t} } = \theta_j. \]
+
+\noindent Consequently, $\theta_j$ captures the response of $X_{t+j}$ to an `impulse\textquoteright \, in $\varepsilon_{t}$. \\
+
+
+
+\noindent \textbf{Mean function}: The mean function of the linear process is zero; that is:
+
+\[ E[X_t] = 0 \quad \forall \: t. \]
+
+\noindent This result does not require the summability condition. \\
+
+\noindent \textbf{Variance:} The variance of $X_t$ equals:
+
+\[ \textrm{Var}(X_t) = \left( \sum_{j=-\infty}^{\infty} \theta_j^2 \right) \sigma^2  \]
+
+\noindent The summability condition implies that the Variance is well defined; i.e., $\textrm{Var}(X_t) < \infty$.\footnote{To see this, just note that 
+\[ \sum_{j=-\infty}^{\infty} | \theta_j| < \infty  \]
+implies that there is $J$ sufficiently large such that $|\theta_j| < 1$ for all $|j| > J$. This implies that:
+\[ \sum_{|j|>J} \theta_j^2 < \sum_{|j|>J} | \theta_j | < \infty.  \]
+Consequently,   
+\[ \sum_{j=-\infty}^{\infty} \theta_j^2 < \infty  \] } 
+Note that the Variance does not depend on the particular index $t$. \\
+
+\noindent \textbf{AutoCovariance Function:} Note that for any elements $X_t$ and $X_{t+h}$ we can show that (we did this in class that):
+
+\[ Cov(X_t, X_{t+h})  = \sum_{j=-\infty}^{\infty} \theta_j \theta_{j+h} \sigma^2  \]
+
+\noindent (which only depends on $h$).\footnote{The Cauchy-Schwarz inequality and the summability condition implies that $|Cov(X_t, X_{t+h})| < \infty$} \\
+
+
+\textbf{Claim:} Let $P$ be any distribution for the white noise $\varepsilon_{t}$. The time series model based on $P$ and any linear process $X_t$ is stationary in the weak sense. \\
+
+
+
+\noindent \textbf{Examples of Linear Processes:} \\
+
+\noindent \textbf{Definition} (MA($\infty$)) A linear process 
+\[ X_t = \sum_{j=-\infty}^{\infty} \theta_j \varepsilon_{t-j} \] 
+
+\noindent is called a \underline{moving average of infinite order} if $\theta_j=0$ for all $j<0$. That is, if 
+
+\[ X_t = \sum_{j=0}^{\infty} \theta_j \varepsilon_{t-j}.\]
+
+\noindent MA($\infty$) are THE most popular time series models. Another popular way of referring to MA$(\infty)$ models is is using the definition of causality. \\
+
+\noindent \textbf{Definition:} A time series $X_t$ is a causal function of $\{\epsilon_t\}$, if $X_t$ depends only on $\epsilon_t, \epsilon_{t-1}, \epsilon_{t-2}, \ldots$.\\
+
+\noindent We can define MA($\infty$) models as \underline{causal linear processes.}  \\
+ 
+ \newpage
+ 
+ Consider the causal linear process that satisfies the equation:
+
+\begin{equation}
+X_t = \phi_1 X_{t-1} + \phi_2 X_{t-2} + \ldots + \phi_p X_{t-p} + \epsilon_{t}. 
+\end{equation}
+
+\noindent We will refer to (1) as the AR($p$) model (autoregressive model of order $p$). 
+
+\section{The IRF coefficients of an AR($p$) model}
+
+We would like to find the IRF coefficients $\psi_0, \psi_1, \psi_2, \ldots $ such that:
+
+\[ X_t = \sum_{j=0}^{\infty} \psi_j \epsilon_{t-j}.\]
+ 
+\noindent Note that whatever these coefficients are, we can write:
+ 
+ \begin{eqnarray*}
+ X_t &=& \psi_0 \epsilon_{t} + \psi_1 \epsilon_{t-1} + \psi_{2} \epsilon_{t-2} +  \psi_3 \epsilon_{t-3} +  \psi_4 \epsilon_{t-4} + \ldots \psi_{p} \: \: \epsilon_{t-p} \: \: \: + \ldots. \\
+ \phi_1 X_{t-1} &= &  \quad \: \:  \phi_1 \left[ \psi_0 \epsilon_{t-1} + \psi_1 \epsilon_{t-2} + \psi_{2} \epsilon_{t-3} +  \psi_3 \epsilon_{t-4} + \ldots  \psi_{p-1} \epsilon_{t-p} + \ldots \right. \\
+ \phi_2 X_{t-2} &= &  \quad \quad \quad \quad \quad \: \:  \phi_2 \left[ \psi_0 \epsilon_{t-2} + \psi_1 \epsilon_{t-3} + \psi_{2} \epsilon_{t-4} +  \ldots  \psi_{p-2} \epsilon_{t-p} + \ldots \right. \\
+ \vdots && \vdots \\
+  \phi_p X_{t-p} &= &  \hspace{6.7cm} \: \:  \phi_p \left[ \psi_0 \: \: \epsilon_{t-p} \: \:+ \ldots \right. \\
+ \end{eqnarray*}
+ 
+Moreover, we know the AR($p$) model satisfies:
+\begin{eqnarray*}
+& \quad X_t & \\
+&-\phi_1 X_{t-1}&\\
+& \vdots & \\
+&-\phi X_{t-p}&\\
+&=& \\
+&\epsilon_{t}&
+\end{eqnarray*}  
+
+Consequently, the IRF coefficients of an AR($p$) model can be written recursively as $\psi_0=1$ and:
+
+\[ \psi_j \equiv \sum_{k=1}^{j} \phi_k \psi_{j-k}, \quad \textrm{where } \phi_j= 0 \textrm{ if } j>p. \]
+
+Getting analytical expressions for these coefficients even in simple models (like the AR($2$) discussed in the Homework) can easily become complicated. The main takeaway from this section is that you can always write a simple Matlab function that takes the AR coefficients as inputs and returns the IRFs. 
+
+
+\section{Summability condition for the AR($p$) model}
+
+How do we know that the IRF coefficients corresponding to some AR coefficients satisfy the summability condition for linear processes? The answer requires some algebra tricks (nothing very deep). 
+
+\subsection{A necessary condition for summability}
+
+Note that if the IRF coefficients are summable, then for any number $z$ such that $|z| \leq 1:$\footnote{z can a \underline{real} number or a \underline{complex} number. If you do not know what the latter is, do not worry: just follow the argument assuming that $z$ is a real number.}
+
+\[ -\infty < \psi_0 + \psi_1z + \psi_2z^2 + \psi_3 z^3 + \ldots   < \infty. \]
+
+Moreover, note that the definition of $\psi_j$ implies that for any $|z|$ such that $|z|\leq 1$: 
+
+\[ (\psi_0 + \psi_1 z + \psi_2 z^2 + \psi_3 z^3 + \ldots  ) (1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p ) = 1, \]
+
+\noindent (we did the algebra for this equation in class). Consequently, the summability of the IRF coefficients implies that for any number such that $|z| \leq 1$, the equation:
+
+\[(1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p ) \]
+
+\noindent cannot equal zero! Thus, a \underline{necessary} condition on $(\phi_1, \ldots , \phi_p)$ for summability of the IRF coefficients is that the equation:
+
+\begin{equation}
+(1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p ) = 0
+\end{equation}
+
+\noindent cannot have a solution $z^*$ such that $|z^*| \leq 1$. \\
+
+{\scshape Using Matlab to check the necessary condition:} Verifying the condition above with pen and paper can be quite complicated (even in simple models like the AR($2$)!). However, it is pretty straightforward to use Matlab to figure out whether or not some values of AR coefficients satisfy the necessary condition for summability. Here is an example. 
+
+Suppose that I give you the AR(2) model:
+\begin{equation}
+X_{t} = .5 X_{t-1} + .8 X_{t-2} + \epsilon_{t-1},
+\end{equation}
+and I ask you if you can represent this equation as a causal linear process. Based on the result above, you only need to solve the equation:
+\[ .8 z^2 + .5 z -1 = 0, \]
+and get the absolute value of the roots. You can do this using the Matlab command:
+\begin{center}
+\texttt{roots[.8 .5 -1].}
+\end{center}
+
+\noindent In this case, there are two real roots:
+\[z^*_1 = -1.4734, \quad z^*_2 = .8484. \]
+
+\noindent and, clearly, $|z^*_2| < 1$. This means that we have found a number with `module\textquoteright smaller than 1 such that:
+\[.8 z^2 + .5 z -1 = 0.\]
+
+\noindent This means that (3) cannot be represented as a causal linear process!
+
+\subsection{A sufficient condition for summability}
+
+Now we want to show that if:
+\[ 1-\phi_1 z -\phi_2 z^2 - \ldots - \phi_p z^p \neq 0 \] 
+for all $|z| \leq 1$, then:
+\begin{equation}
+\sum_{j=0}^{\infty} |\psi_j| < \infty. 
+\end{equation} 
+
+\noindent This is actually easier than the necessary condition. We have shown that the definition of the IRF coefficients implies that:
+\[ (\psi_0 + \psi_1 z + \psi_2 z^2 + \psi_3 z^3 + \ldots  ) (1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p ) = 1. \]
+
+\noindent This means that:
+
+\[ (\psi_0 + \psi_1 z + \psi_2 z^2 + \psi_3 z^3 + \ldots  ) = \frac{1}{ (1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p )}. \]
+for all $|z| \leq 1$. Note that function:
+\[\frac{1}{ (1 - \phi_1 z - \phi_2 z^2  - \ldots \phi_p z^p )}\] 
+is continuous around $1$, therefore there is some $\epsilon>0$ such that:
+\[ -\infty <\psi_0 + \psi_1 (1+\epsilon) + \psi_2 (1+\epsilon)^2 + \psi_3 (1+\epsilon)^3 + \ldots \infty.\]
+This implies that:
+\[\psi_j (1+\epsilon)^j \rightarrow 0,\]
+and therefore, there is some $K>0$ such that for $j$ large enough:
+\[ |\psi_j| \leq \frac{K}{(1+\epsilon)^j}.\]
+This gives the desired result. 
+\newpage
+
+
+
+ 
+ 
+
+\end{document}
