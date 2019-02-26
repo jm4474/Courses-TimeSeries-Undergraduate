@@ -1,0 +1,77 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lecture 11}
+\date{}
+\maketitle
+
+\section{Estimation in an MA(1) model: $\theta_1$ and $\sigma^2$}
+
+Consider the MA(1) model:
+
+\[ X_t =  \mu + \epsilon_{t} + \theta_1 \epsilon_{t-1}, \quad E[\epsilon_t]=0 \quad E[\epsilon_t^2]=\sigma^2. \]
+
+\noindent We are trying to figure out how to use time series data $(X_1, X_2, \ldots X_{T})$ to estimate the parameters $\mu, \theta_1, \sigma^2$. \\
+
+For $\mu$ (which is the population mean of $X_t$) we have already discussed the properties of the estimator: 
+
+\[ \widehat{\mu} = \frac{1}{T} \sum_{t=1}^{T} X_t. \]
+
+\noindent We also know that:
+
+\[\gamma_0 = \sigma^2 + \theta_1^2 \sigma^2, \quad \gamma_1 = \theta_1 \sigma^2. \]
+
+This gives $\theta_1$ and $\sigma^2$ as a function of  $\gamma_0$ and $\gamma_1$ which have direct counterparts in the data (denote them $\widehat{\gamma}_0, \widehat{\gamma}_1$). Thus, one way to try to figure out what are the values of $\theta_1$ and $\sigma^2$ is to solve the system of equations:
+\begin{eqnarray}
+\gamma_0 &=&  \sigma^2 + \theta_1^2 \sigma^2 \\
+\gamma_1 &=& \theta_1 \sigma^2  
+\end{eqnarray}
+
+\noindent  From (2) we get that $\theta_1 = \gamma_1/\sigma^2$ and from (1), we get that:
+ 
+\[ \gamma_0 =  \sigma^2 + \frac{\gamma_1^2}{\sigma^2} \]
+
+\noindent Multiplying the expression by $\sigma^2$ we have the expression:
+
+\[ (\sigma^2)^2 -\gamma_0 \sigma^2 +  \gamma_1^2 \]
+
+\noindent which is a quadratic equation in $\sigma^2$. Solving for $\sigma^2$ we get 
+
+\[\sigma^2 = \frac{\gamma_0 \pm \sqrt{\gamma_0^2 - 4 \gamma_1^2}}{2},\]
+
+\noindent which we can further re-write as:
+
+\[ \sigma^2 = \gamma_0 \left( \frac{1 \pm \sqrt{1 - 4 (\gamma_1/\gamma_0)^2}}{2} \right) \]
+
+\noindent and 
+
+\[ \theta_1 = \frac{\gamma_1/\gamma_0}{\left( \frac{1 \pm \sqrt{1 - 4 (\gamma_1/\gamma_0)^2}}{2} \right)} \]
+
+\noindent A natural estimator for $\sigma^2$ and $\theta_1$ replaces $\gamma_0$ and $\gamma_1$ by $\widehat{\gamma}_0$ and $\widehat{\gamma}_1$. Note that we are finding two solutions, but only  one them satisfies $|\theta_1| < 1$.\\
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+
+
+
+ 
+ 
+
+\end{document}
