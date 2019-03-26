@@ -1,0 +1,164 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath}
+\usepackage[utf8x]{inputenc}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Lectures 17-18-19}
+\date{}
+\maketitle
+
+
+\section{A primer on Bayesian Analysis}
+
+\subsection{Decision Problems, Decision Rules, and Admissibility.}
+
+Bayesian analysis plays an important role in modern econometrics. The starting point of classical Bayesian analysis is a \underline{parametric statistical model}:
+
+\[ f(x | \theta), \quad \theta \in \Theta. \]
+
+\noindent In Bayesian analysis there is typically a concrete \underline{decision problem} to solve (with actions $a$ in some set $\mathcal{A}$) and a loss-function $\mathcal{L}(a;\theta)$ used to rank actions. 
+
+We would like to use the loss function to find a ``reasonable\textquotedblright\, \underline{decision rule} $d$ for the decision problem at hand.\footnote{A decision rule is a map from data to actions} 
+
+In order to define what a reasonable decision rule, we need a few more definitions. Define the \underline{risk} of a decision as the expected loss of a decision at parameter $\theta$:
+
+\[ R(d; \theta) = \mathbb{E}_{\theta}[ \mathcal{L}(d(x); \theta) ] = \int  \mathcal{L}(d(x); \theta) f(x|\theta) d x.   \]
+
+\noindent 
+
+Our notion of reasonable decision rules is as follows: \\
+
+\noindent \textbf{Definition 1:} A decision function $d$ is \underline{admissible} if there is no other decision $d^{\prime}$ such that:
+\[ R(d^{\prime}; \theta) \leq R(d; \theta) \]
+for every $\theta$ (with at least some strict inequality). \\
+
+\subsection{Bayes Rules are Admissible}
+Note that the risk function depends on $\theta$. Therefore, some decision rules may have low risk at some points of the parameter space but hight risk in others. A \underline{Bayes Decision Rule}---for a given ``weight \textquotedblright function $\pi$ on $\Theta$---is one that minimizes average risk defined as:
+
+\begin{equation}
+r_{\pi}(d) \equiv \int_{\Theta} R(d(x); \theta ) \pi(\theta) d_{\theta}. 
+\end{equation}
+
+\noindent Consequently, we say that: \\
+
+\noindent \textbf{Definition 2:} $d^*$ is a Bayesian decision rule for the weight $\pi$ is:
+\[ r_{\pi}(d^*) \leq r_{\pi}(d^{\prime})  \]
+for any other rule $d^{\prime}$. The weight function $\pi$ is usually called a \underline{prior}.\\
+
+\noindent \textbf{Result}: Suppose that the risk function $R(:, \theta)$ is continuous for any decision rule and let $\pi$ be any prior with full support on $\Theta$. The Bayes rule $d^*$ corresponding to $\pi$ is admissible. \\
+
+\noindent {\scshape Proof:} Suppose $d^*$ is not admissible. Then there exists $d^{\prime}$ such that:
+\[ R(d^{\prime}, \theta) \leq R(d^*, \theta),  \]
+with strict inequality for some $\theta^* \in \Theta$. Since $R(d^*,\theta)$ is continuous in $\theta$, there exists a neighborhood $N(\theta^*)$ such that 
+\[  R(d^{\prime}, \theta) < R(d^*, \theta) \quad \forall \quad \theta \in N(\theta^*). \]
+
+\noindent Since $\pi$ has full support, this means that:
+
+\[ r_{\pi}(d^{\prime}) < r_{\pi}(d^*).   \]
+
+\noindent A contradiction. \\
+
+\noindent Thus, Bayes Rules are reasonable choices for decision problems. 
+
+\subsection{Minimizing Bayes Risk and Minimizing Posterior Loss}
+
+Minimizing Bayes risk is a complicated problem: we are optimizing over a space of functions. Note however that:
+
+\begin{eqnarray*}
+r_{\pi}(d) &\equiv& \int_{\Theta} R(d(x); \theta ) \pi(\theta) d{\theta} \\
+&=&  \int_{\Theta}\Big( \int_{X} \mathcal{L}(d(x); \theta) f(x| \theta) d x  \Big)  \pi(\theta) d{\theta} \\
+&& (\textrm{by definition of Risk}) \\
+&=& \int_{X}   \Big( \int_{\Theta} \mathcal{L}(d(x); \theta) f(x| \theta) \pi(\theta) d \theta  \Big)   dx \\
+&=& \int_{X}   \Big( \int_{\Theta} \mathcal{L}(d(x); \theta)\pi (\theta | x) d \theta  \Big) f^*(x)  dx
+\end{eqnarray*}
+
+\noindent where $f^*(x)= \int_{\theta} f(x|\theta) \pi(\theta) d \theta$. So, minimizing (ex-ante) Bayes Risk is the same as choosing the action $d(x)$ that minimizes: 
+
+\[ \int_{\Theta} \mathcal{L}(d(x); \theta)\pi (\theta | x) d \theta.  \] 
+
+\noindent The latter quantity is referred to as \underline{Posterior Loss}. 
+
+\newpage
+
+\section{Bayesian Analysis of Linear Regression}
+
+In order to illustrate the concepts discussed in the previous section, we now present a Bayesian analysis of Gaussian Linear Regression:
+
+\begin{equation}
+\underbrace{y}_{T \times 1} = \underbrace{X}_{T \times k} \: \: \underbrace{\beta}_{k \times 1} + \underbrace{\epsilon}_{T \times 1}.
+\end{equation}
+
+\noindent For simplicity, we assume that the analysis is ``conditional\textquotedblright\, on $X$ and that $\epsilon_{t} \sim \mathcal{N}(0,\sigma^2)$. The parameters of this model are $\beta$ and $\sigma^2$. Hence, a prior will need to specify a joint distribution over $(\beta, \sigma^2)$.  
+
+\subsection{Bayesian Estimation of $\beta$}
+
+We consider first the problem of estimating the vector $\beta$. An action is an element $a$ of $\mathbb{R}^p$. The parameter space $\Theta$ is also $\mathbb{R}^p$. The loss function is \emph{quadratic loss}
+\begin{equation}
+\mathcal{L}(a, \beta) = (a-\beta)^{\prime}(a-\beta). 
+\end{equation}
+
+\noindent An estimator---denoted $\widehat{\beta}_{T}$---is a function that takes data $(y,X)$ to an action $a$. A Bayes Estimator given a prior $\pi(\cdot)$ on $\Theta$ is the estimator (or decision rule) that minimizes average risk given the prior.  
+
+Last class we showed that minimizing average risk is the same as \emph{minimizing expected posterior loss for every data realization}. Expected posterior loss of action $a$ is given by:
+\[ \mathbb{E} [ (a-\beta)^{\prime} (a-\beta) \: | \: y,X ]\]
+
+By adding and subtracting $E[\beta | y,x]$ in the terms inside the brackets, it is not difficult to see that the action that minimizes posterior expected loss is the posterior mean:
+
+\[ \mathbb{E} [\beta \: | \: y,X] \]
+
+\newpage
+
+Consider then the following prior (or weight function) on $\beta$:
+
+\begin{equation}
+\beta | \sigma^2 \sim \pi (\beta | \sigma^2 ) \equiv \mathcal{N}_{k}( \mu \: , \: \sigma^2 V), \quad \sigma^2 \sim \pi(\sigma^2)
+\end{equation}
+
+\noindent The prior assumes that---conditional on the variance parameter---all the coefficients are approximately normal with values close to the vector $\mu$. There is typically no good way of selecting a prior. More often than not, the selection of a prior trades-off interpretation and convenience in its implementation. 
+
+As first step in the analysis, we derive the posterior distribution of $\beta$. We obtain this distribution in two-steps. First, we consider the posterior distribution of $\beta$ but conditional on $\sigma^2$. Then, we integrate over $\sigma^2$. 
+
+The posterior distribution of $\beta | \sigma^2$ is usually obtained by applying Bayes Theorem:
+\begin{equation*}
+\pi(\beta \: | \: \sigma^2, y, X ) = \frac{f(y,X \: | \: \beta, \sigma^2) \pi(\beta | \sigma^2 ) }{\int_{\Theta} f(y, X  \: | \: \beta, \sigma^2) \pi (\beta | \sigma^2) d \beta} 
+\end{equation*}
+
+\noindent Since we have assumed that the analysis is conditional on $X$ we can write:
+
+\begin{equation}
+\pi(\beta \: | \: \sigma^2, y, X ) = \frac{f(y \: | \: X, \beta, \sigma^2) \pi(\beta | \sigma^2 ) }{\int_{\Theta} f(y \: | \: X, \beta, \sigma^2) \pi (\beta, \sigma^2) d \beta}, 
+\end{equation}
+\noindent where $f(y | X, \beta, \sigma^2)$ is the conditional distribution of $y$ given $(X,\beta)$ and $\pi(\cdot)$ is the p.d.f. of the prior for $\beta$.  
+\noindent Note that:
+
+\[ y | X, \beta, \sigma^2 \sim \mathcal{N}_{T} (X\beta \: , \: \sigma^2 \mathbb{I}_T), \quad \beta | \sigma^2 \sim \mathcal{N}_{k}(0_{k \times 1}, \sigma^2 V).   \] 
+
+\noindent Consequently, $f(y | X, \beta, \sigma^2 )\:  \pi(\beta | \sigma^2 )$ equals:
+\[ \frac{1}{(\sqrt{2 \pi \sigma^2} )^T} \exp \left( -\frac{1}{2\sigma^2} (y-X\beta)^{\prime} (y-X \beta) \right) \frac{1}{\sqrt{2 \pi \sigma^2}^{k} \textrm{det}(V)^{1/2}} \exp \left(-\frac{1}{2 \sigma^2} (\beta-\mu)^{\prime} V^{-1} (\beta-\mu) \right).  \]
+
+Typically, one can compute (or take computer draws from) the posterior distribution of $\beta$ without worrying about the numerator in $(4)$. In our example, it suffices to manipulate the expression:
+\[ \exp \left( -\frac{1}{2 \sigma^2} (y-X\beta)^{\prime} (y-X \beta) \right)  \exp \left(-\frac{1}{2 \sigma^2} (\beta-\mu)^{\prime} V^{-1} (\beta-\mu) \right),\]
+where we can forget about the constants. The expression above equals:
+\[ \exp \left( -\frac{1}{2\sigma^2} y^{\prime} y \right) \exp \left(  - \frac{1}{2 \sigma^2 } \beta \left(V^{-1} + X’X \right) \beta + \frac{(y^{\prime} X+V^{-1}\mu) \beta}{\sigma^2} \right). \]
+Completing the square and ignoring all the terms that do not have $\beta$ on them, gives the posterior distribution as a constant times the exponential of:
+\begin{equation*}
+-\frac{1}{2 \sigma^2} \left( \beta -  \left( V^{-1} + X^{\prime} X \right)^{-1} (X^{\prime} y+ V^{-1} \mu) \right) \left(V^{-1} + X’X \right) \left( \beta -  \left( V^{-1} + X^{\prime} X \right)^{-1} (X^{\prime} y+ V^{-1}\mu) \right). 
+\end{equation*}
+This implies that:
+\begin{equation}
+\beta | \sigma^2, y, X \sim \mathcal{N}_{k} \left(  \left( \frac{1}{T} V^{-1} + \frac{X^{\prime} X}{T} \right)^{-1} \frac{(X^{\prime} y+V^{-1}\mu)}{T} \: , \:   \frac{\sigma^2}{T}\left(\frac{1}{T}V^{-1} + \frac{X^{\prime} X}{T} \right)^{-1}   \right).
+\end{equation}
+This means that the Bayesian Estimator of $\beta$ given the Gaussian prior $\pi(\beta)$ is:
+
+\[  \left( \frac{1}{T} V^{-1} + \frac{X^{\prime} X}{T} \right)^{-1} \left( \frac{X^{\prime} y}{T}+ \frac{V^{-1}\mu}{T} \right) \]
+ 
+\noindent 
+
+\newpage
+
+
+\end{document}
