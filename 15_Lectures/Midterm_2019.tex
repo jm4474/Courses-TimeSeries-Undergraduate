@@ -1,0 +1,109 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Midterm}
+\maketitle
+
+This sample Midterm has 100 points. Please read the questions carefully and provide clean and concise answers (I cannot grant partial credit for unreadable answers). I suggest you to answer the questions in the order that they appear.  \\
+
+The grades for the midterm will be based on relative performance. Bottom 20\% gets a C, Top 30\% gets an A, the rest gets a B. Pluses or minuses, would be determined by the relative quality of the answers. \\
+
+Good luck! \\
+
+
+
+
+
+\noindent \textbf{Question 1 (10 points):} \\ 
+
+\begin{itemize}
+\item [a)] (10 points) Suppose $\epsilon_t \sim \mathcal{N}(0,\sigma^2)$ is i.i.d. over time. Is the process:
+\[X_t \equiv \frac{1}{\sqrt{t}} \sum_{j=1}^{t} \epsilon_j. \]
+weakly stationary? Choose one (and only one) of the following answers
+
+\begin{itemize}
+\item [$\square$] Yes, it is weakly stationary. 
+\item [$\square$] Yes, it is in an MA(q) process.
+\item [$\square$] No! It is not weakly stationary because the variance depends on $t$!
+\item [$\square$] No! Even though it is true that both the mean and the variance are constant over time, the autocovariance function depends on $t$! 
+\end{itemize}
+%\item [c)] (10 points) Does the model
+%\[ X_t = (1/8) X_{t-3} + \epsilon_{t}?\]
+%admits a causual linear process representation? Justify your answer.
+
+\end{itemize}
+
+
+
+
+\noindent \textbf{Question 2 (35 points):} Consider the time series model---with parameters $\phi \: (|\phi|<1), \theta, \sigma^2$---given by:
+\begin{equation}
+X_t=  \sum_{j=0}^{\infty} \phi^j \eta_{t-j}, \quad \eta_t = \epsilon_{t} + \theta \epsilon_{t-1}, \quad \epsilon_t \sim \mathcal{N}(0,\sigma^2), \quad \textrm{ i.i.d. }\quad 
+\end{equation}
+
+\noindent Note that $\eta_t$ is an MA(1) model with parameter $\theta$. This means that:
+\[ V(\eta_t) = \sigma^2 + \theta^2 \sigma^2 \quad \textrm{and} \quad \textrm{Cov}(\eta_{t+1}, \eta_t) = \theta \sigma^2.  \]
+
+\noindent The model in (1) can be written as:
+
+\begin{equation}
+X_t =  \phi X_{t-1} + \epsilon_t + \theta \epsilon_{t-1}, \quad \epsilon_t \sim \mathcal{N}(0,\sigma^2), \quad \textrm{ i.i.d. }
+\end{equation}
+
+\noindent This is called an ARMA(1,1) model (AR for autoregressive, MA for moving average). 
+
+\begin{itemize}
+
+\item [a)] (12.5 points) What is the variance of $X_t$? ({\scshape{Hint}}: $\textrm{Cov}(X_t,\epsilon_t) = \sigma^2$, $X_t$ is weakly stationary).     \\
+
+\item [b)] (12.5 points) Suppose that you try to estimate the parameter $\phi$ by OLS. That is, you regress $X_t$ on $X_{t-1}$ and estimate $\phi$ as
+\[ \widehat{\phi} =  \sum_{t=2}^{T} x_t x_{t-1} \Big / \sum_{t=2}^{T} x_{t-1}^2.  \]
+
+
+Is $\widehat{\phi}$ a consistent estimator? If not, what is the probability limit of $\phi$ as a function of $(\phi, \theta, \sigma^2)$? ({\scshape{Hint:}} Use the LLN for averages of $X_t$ and/or products of the form $X_{t} X_{t-h}$. Also, if you have two sequences $X_n, Y_n$ such that $X_n \overset{p}{\rightarrow} X$ and $Y_n \overset{p}{\rightarrow} Y \neq 0$ then $X_n / Y_n \overset{p}{\rightarrow} X/Y$ )\\
+
+\item [c)] (10 points) Suppose that you know $\sigma^2$ and $\theta$. How could you construct a consistent estimator for $\phi$? ({\scshape{Hint:}} Could you remove the bias of the OLS estimator by estimating it? Again, if you have two sequences $X_n, Y_n$ such that $X_n \overset{p}{\rightarrow} X$ and $Y_n \overset{p}{\rightarrow} Y \neq 0$ then $X_n / Y_n \overset{p}{\rightarrow} X/Y$ If this hint does not help you, construct your own estimator). \\
+
+\end{itemize}
+
+
+\noindent \textbf{Question 3 (25 points):} Consider the time series model---with parameters $\mu \neq 1, \mu>0, \sigma^2$---given by:
+
+\begin{equation}
+X_t = \mu^t \exp(\epsilon_t) \quad \epsilon_{t} \sim \mathcal{N}(0,\sigma^2), \textrm{ i.i.d. }
+\end{equation}
+
+\begin{itemize}
+\item [a)] (25 points) Is the estimator 
+\[ \frac{1}{T} \sum_{t=2}^{T} \ln (X_{t}) - \ln (X_{t-1}), \]
+a consistent estimator for $\ln(\mu)$?
+
+\end{itemize}
+
+
+\noindent \textbf{Question 4 (30 points):} Consider the nonstationary model for $(X_1, \ldots, X_{T})$ given by:
+\begin{equation}
+X_t = (\mu) (t) + \epsilon_t, \quad \epsilon_t \sim N(0,\sigma^2) \quad \textrm{i.i.d.}
+\end{equation}
+with parameter $\sigma^2$. Assume that $\mu$ is known. The model above is a simple model of random variable with a trend (the mean $\mu$ grows linearly over time). We would like to estimate scale of the residuals. 
+
+\begin{itemize}
+\item [a)] (10 points) What is the log-likelihood function of the data $(X_1, X_2, \ldots, X_{T})$? {\scshape Hint:} If $Z \sim \mathcal{N}(m, s^2)$, then the p.d.f of $Z$ is given by:
+$$ f(Z; m, s) = \frac{1}{\sqrt{2\pi} s } \exp \left( -\frac{1}{2 s^2} (Z-m)^2 \right)  $$
+ 
+ \item [b)] (10 points) What is the Maximum Likelihood Estimator of $\sigma^2$ in the model given by $(4)$? \\
+ 
+ \item [c)] (10 points) Is the Maximum Likelihood Estimator for $\sigma^2$ consistent? 
+  
+\end{itemize}
+
+
+
+ 
+
+\end{document}

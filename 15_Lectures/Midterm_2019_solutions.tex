@@ -1,0 +1,238 @@
+\documentclass[12] {article}
+\usepackage{setspace}
+\usepackage{amssymb,amsmath}
+
+
+\begin{document}
+\onehalfspace
+
+\title{Midterm}
+\maketitle
+
+This sample Midterm has 100 points. Please read the questions carefully and provide clean and concise answers (I cannot grant partial credit for unreadable answers). I suggest you to answer the questions in the order that they appear.  \\
+
+The grades for the midterm will be based on relative performance. Bottom 20\% gets a C, Top 30\% gets an A, the rest gets a B. Pluses or minuses, would be determined by the relative quality of the answers. \\
+
+Good luck!\\
+
+
+
+
+
+\noindent \textbf{Question 1 (10 points):} \\ 
+
+\begin{itemize}
+\item [a)] (10 points) Suppose $\epsilon_t \sim \mathcal{N}(0,\sigma^2)$ is i.i.d. over time. Is the process:
+\[X_t \equiv \frac{1}{\sqrt{t}} \sum_{j=1}^{t} \epsilon_j. \]
+weakly stationary? Choose one (and only one) of the following answers
+
+\begin{itemize}
+\item [$\square$] Yes, it is weakly stationary. 
+\item [$\square$] Yes, it is in an MA(q) process.
+\item [$\square$] No! It is not weakly stationary because the variance depends on $t$!
+\item [$\checkmark$] No! Even though it is true that both the mean and the variance are constant over time, the autocovariance function depends on $t$! 
+\end{itemize}
+
+\noindent \textbf{Answer:} To make this point consider $cov(X_{t},X_{t-1})$. This equals
+\[ \frac{1}{\sqrt{t}}\frac{1}{\sqrt{t-1}} \textrm{cov} ( \epsilon_1 + \ldots + \epsilon_{t-1} + \epsilon_t,  \epsilon_1 + \ldots + \epsilon_{t-1}). \]
+Because $\epsilon_{t}$ are i.i.d. over time, the covariance above equals
+\[ (t-1) \sigma^2.\]
+Consequently,
+\[ cov(X_{t},X_{t-1}) = \sigma^2 \sqrt{t-1}/\sqrt{t}. \]
+
+
+
+
+
+
+
+%\item [c)] (10 points) Does the model
+%\[ X_t = (1/8) X_{t-3} + \epsilon_{t}?\]
+%admits a causual linear process representation? Justify your answer.
+
+\end{itemize}
+
+
+
+
+\noindent \textbf{Question 2 (35 points):} Consider the time series model---with parameters $\phi \: (|\phi|<1), \theta, \sigma^2$---given by:
+\begin{equation}
+X_t=  \sum_{j=0}^{\infty} \phi^j \eta_{t-j}, \quad \eta_t = \epsilon_{t} + \theta \epsilon_{t-1}, \quad \epsilon_t \sim \mathcal{N}(0,\sigma^2), \quad \textrm{ i.i.d. }\quad 
+\end{equation}
+
+\noindent Note that $\eta_t$ is an MA(1) model with parameter $\theta$. This means that:
+\[ V(\eta_t) = \sigma^2 + \theta^2 \sigma^2 \quad \textrm{and} \quad \textrm{Cov}(\eta_{t+1}, \eta_t) = \theta \sigma^2.  \]
+
+\noindent The model in (1) can be written as:
+
+\begin{equation}
+X_t =  \phi X_{t-1} + \epsilon_t + \theta \epsilon_{t-1}, \quad \epsilon_t \sim \mathcal{N}(0,\sigma^2), \quad \textrm{ i.i.d. }
+\end{equation}
+
+\noindent This is called an ARMA(1,1) model (AR for autoregressive, MA for moving average). 
+
+\begin{itemize}
+
+\item [a)] (12.5 points) What is the variance of $X_t$? ({\scshape{Hint}}: $\textrm{Cov}(X_t,\epsilon_t) = \sigma^2$, $X_t$ is weakly stationary).     \\
+
+\textbf{Answer:} We compute the variance as we did in class. 
+\begin{eqnarray*}
+V(X_t) &=& V (\phi X_{t-1} + \eta_t) \\
+&=& \phi^2 V(X_{t-1}) + V(\eta_t) + 2 \textrm{Cov}(X_{t-1}, \eta_t). 
+\end{eqnarray*}
+Weak stationarity implies $V(X_t) = V(X_{t-1})$. Consequently:
+\[ V(X_t) = \frac{1}{1-\phi^2} \left[ V(\eta_t) + 2 \textrm{Cov}(X_{t-1}, \eta_t)  \right]. \]
+
+We know $V(\eta_t)= \epsilon_t + \theta \epsilon_{t-1}$, because $\eta_t$ is an MA(1) model. We only need to compute 
+\begin{eqnarray*}
+\textrm{Cov}(X_{t-1}, \eta_t)  &=& \textrm{Cov}(X_{t-1}, \epsilon_{t} + \theta \epsilon_{t-1} ),  \\
+&=&  \textrm{Cov}(X_{t-1}, \epsilon_{t}) + \theta \textrm{Cov} ( X_{t-1} ,  \epsilon_{t-1} ), \\
+&=&   \theta \textrm{Cov} ( X_{t-1} ,  \epsilon_{t-1} ), \\
+&& \textrm{(by equation (1))} \\
+&=& \theta \sigma^2. \\ 
+&& \textrm{(by the Hint in the previous page)}. 
+\end{eqnarray*}
+We conclude 
+
+\[ V(X_t) = \frac{1}{1-\phi^2} \left[ \sigma^2 + \theta^2 \sigma^2 + 2 \theta \sigma^2  \right] = \frac{\sigma^2}{1-\phi^2}  (1+\theta)^2   . \]
+
+
+\item [b)] (12.5 points) Suppose that you try to estimate the parameter $\phi$ by OLS. That is, you regress $X_t$ on $X_{t-1}$ and estimate $\phi$ as
+\[ \widehat{\phi} =  \sum_{t=2}^{T} x_t x_{t-1} \Big / \sum_{t=2}^{T} x_{t-1}^2.  \]
+
+
+Is $\widehat{\phi}$ a consistent estimator? If not, what is the probability limit of $\phi$ as a function of $(\phi, \theta, \sigma^2)$? ({\scshape{Hint:}} Use the LLN for averages of $X_t$ and/or products of the form $X_{t} X_{t-h}$. Also, if you have two sequences $X_n, Y_n$ such that $X_n \overset{p}{\rightarrow} X$ and $Y_n \overset{p}{\rightarrow} Y \neq 0$ then $X_n / Y_n \rightarrow X/Y$ )\\
+
+\textbf{Answer:} The regressor $X_{t-1}$ is correlated with the residual $\eta_t = \epsilon_t + \theta \epsilon_{t-1}$. This means that we do not expect OLS to be consistent. To formalize this observation we first apply the LLN
+
+\begin{eqnarray*}
+ \widehat{\phi} &=&  \sum_{t=2}^{T} x_t x_{t-1} \Big / \sum_{t=2}^{T} x_{t-1}^2, \\
+ & \overset{p}{\rightarrow}& \mathbb{E}[X_{t} X_{t-1} ] / E[X^2_{t-1}], \\
+ &=& \mathbb{E}[X_{t} X_{t-1} ] / V[X_{t-1}]. \\
+\end{eqnarray*}
+
+And note that for the ARMA(1,1) model
+\begin{eqnarray*}
+\mathbb{E} [X_t X_{t-1}] &=& \mathbb{E} [ \left( \phi X_{t-1} + \eta_t \right)X_{t-1}], \\
+&=& \phi \mathbb{E}[X_{t-1}^2] + \mathbb{E}[\eta_t X_{t-1}], \\
+&=& \phi \mathbb{E}[X_{t-1}^2] +\mathbb{E}[ (\epsilon_t + \theta \epsilon_{t-1}) X_{t-1}],\\
+&=& \phi \mathbb{E}[X_{t-1}^2] + \theta \sigma^2.
+\end{eqnarray*}
+Therefore
+\[  \widehat{\phi}  \overset{p}{\rightarrow} \phi + \frac{\theta \sigma^2}{V(X_{t})}. \]
+This shows that $ \widehat{\phi} $ is not consistent for $\phi$. 
+
+
+\item [c)] (10 points) Suppose that you know $\sigma^2$ and $\theta$. How could you construct a consistent estimator for $\phi$? ({\scshape{Hint:}} Could you remove the bias of the OLS estimator by estimating it? Again, if you have two sequences $X_n, Y_n$ such that $X_n \overset{p}{\rightarrow} X$ and $Y_n \overset{p}{\rightarrow} Y \neq 0$ then $X_n / Y_n \rightarrow X/Y$ If this hint does not help you, construct your own estimator). \\
+
+\textbf{Answer:} The bias of the OLS estimator depends on $\theta$, $\sigma^2$, and $V(X_t)$. Consider the estimator 
+
+\[ \widehat{\phi} - \frac{\theta \sigma^2}{ \widehat{V}(X_t)}, \]
+where
+\[\widehat{V}(X_t) \equiv \frac{1}{T} \sum_{t=1}^{T} X_t^2. \]
+
+By part b) and the hint to this question
+
+\[\widehat{\phi} - \frac{\theta \sigma^2}{ \widehat{V}(X_t)}  \overset{p}{\rightarrow} \phi. \]
+
+
+\end{itemize}
+
+
+\noindent \textbf{Question 3 (25 points):} Consider the time series model---with parameters $\mu \neq 1, \mu>0, \sigma^2$---given by:
+
+\begin{equation}
+X_t = \mu^t \exp(\epsilon_t) \quad \epsilon_{t} \sim \mathcal{N}(0,\sigma^2), \textrm{ i.i.d. }
+\end{equation}
+
+\begin{itemize}
+\item [a)] (25 points) Is the estimator 
+\[ \frac{1}{T} \sum_{t=2}^{T} \ln (X_{t}) - \ln (X_{t-1}), \]
+a consistent estimator for $\ln(\mu)$?
+
+\end{itemize}
+
+\textbf{Answer:} According to $(3)$ 
+
+\[ \ln(X_t) = t \ln (\mu) + \epsilon_t \]
+
+and
+
+\[ \ln(X_{t-1}) = (t-1) \ln (\mu) + \epsilon_{t-1} \]
+
+Therefore,
+
+\[ \ln(X_t) - \ln(X_{t-1}) = \ln(\mu) + \epsilon_t - \epsilon_{t-1}, \]
+
+and
+
+\begin{eqnarray*}
+\frac{1}{T} \sum_{t=2}^{T} \left( \ln (X_{t}) - \ln (X_{t-1}) \right) - \ln(\mu) &=& -\frac{1}{T} \ln(\mu)  + \frac{1}{T} \sum_{t=1}^{T} \epsilon_{t} + \frac{1}{T} \sum_{t=2}^{T} \epsilon_{t-1}, \\
+&=& -\frac{1}{T} \ln(\mu)  + \left( \frac{T-1}{T} \right)  \frac{1}{T-1}\sum_{t=1}^{T} \epsilon_{t} \\
+&-& \left(\frac{T-1}{T}\right) \frac{1}{T-1} \sum_{t=2}^{T} \epsilon_{t-1}. 
+\end{eqnarray*}
+Since $\ln(\mu)/T \rightarrow 0$, the Law of Large Numbers imply
+
+\[ \frac{1}{T} \sum_{t=2}^{T} \left( \ln (X_{t}) - \ln (X_{t-1}) \right) - \ln(\mu) \overset{p}{\rightarrow} 0. \]
+
+
+
+
+
+
+
+
+\noindent \textbf{Question 4 (30 points):} Consider the nonstationary model for $(X_1, \ldots, X_{T})$ given by:
+\begin{equation}
+X_t = (\mu) (t) + \epsilon_t, \quad \epsilon_t \sim N(0,\sigma^2) \quad \textrm{i.i.d.}
+\end{equation}
+with parameter $\sigma^2$. Assume that $\mu$ is known. The model above is a simple model of random variable with a trend (the mean $\mu$ grows linearly over time). We would like to estimate scale of the residuals. 
+
+\begin{itemize}
+\item [a)] (5 points) What is the log-likelihood function of the data $(X_1, X_2, \ldots, X_{T})$? {\scshape Hint:} If $Z \sim \mathcal{N}(m, s^2)$, then the p.d.f of $Z$ is given by:
+$$ f(Z; m, s) = \frac{1}{\sqrt{2\pi} s } \exp \left( -\frac{1}{2 s^2} (Z-m)^2 \right)  $$
+
+\textbf{Answer:} The p.d.f of $X_t$ is given by
+
+\[ f(X_t |  \sigma^2) =  \frac{1}{\sqrt{2\pi} \sigma } \exp \left( -\frac{1}{2 \sigma^2} (X_t-\mu t)^2 \right).   \]
+
+By independence, the Likelihood function is
+
+\[ \Pi_{t=1}^{T} f(X_t |  \sigma^2) =  \left( \frac{1}{\sqrt{2\pi} \sigma } \right)^{T} \exp \left( -\frac{1}{2 \sigma^2} \sum_{t=1}^{T}(X_t-\mu t)^2 \right).   \]
+
+Thus, the log-likelihood function is
+
+\[ T \left( \ln \frac{1}{\sqrt{2 \pi}} \right) - \frac{T}{2} \ln (\sigma^2) -  \frac{1}{2 \sigma^2} \sum_{t=1}^{T}(X_t-\mu t)^2 \]
+
+
+ 
+ \item [b)] (10 points) What is the Maximum Likelihood Estimator of $\sigma^2$ in the model given by $(4)$? \\
+ 
+\textbf{Answer:} The necessary first order conditions are
+
+\[ -\frac{T}{2} \frac{1}{\sigma^2} + \frac{1}{2 (\sigma^2)^2} \sum_{t=1}^{T} (X_t - t \mu)^2 . \]
+
+Because $\mu$ is known (by assumption) 
+
+\[ \widehat{\sigma}^2 = \frac{1}{T} \sum_{t=1}^{T} (X_t - t \mu)^2 \] 
+ 
+ 
+ \item [c)] (10 points) Is the Maximum Likelihood Estimator for $\sigma^2$ consistent? 
+  
+\textbf{Answer:} Yes, it is. 
+
+\[ X_t - t \mu = \epsilon_t. \]
+
+Consequently  
+
+\[ \widehat{\sigma}^2 = \frac{1}{T} \sum_{t=1}^{T} (\epsilon_t)^2. \]
+
+The Law of Large Numbers implies $\widehat{\sigma}^2 \overset{p}{\rightarrow} \sigma^2$.  
+  
+\end{itemize}
+
+
+
+ 
+
+\end{document}
