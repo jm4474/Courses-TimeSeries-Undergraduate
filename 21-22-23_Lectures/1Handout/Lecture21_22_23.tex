@@ -13,7 +13,7 @@
 
 \section{A primer on Model Selection}
 
-Broadly speaking, model selection refers to the use of data to select a particular statistical model within a certain class. In the context of autoregressive models, model selection is tantamount to deciding the number of lags $(p)$ that should be included in the autoregressive specification.
+Broadly speaking, model selection refers to the use of data to select a particular statistical model within a certain class. In the context of autoregressive models, model selection is typically used to decide the number of lags that should be included in the autoregressive specification.
 
 A popular approach to select the number of lags of an AR($p$) model is the \underline{Bayes Information Criterion}. Let $T$ be the sample size. For any integer $p<T$ define the function:
 
@@ -119,7 +119,7 @@ Once again, let now $p^*$ denote the true model and let $\tilde{p}$ be some larg
 Note that:
 
 \begin{eqnarray*}
-\mathbb{P}_{\tilde{p}}(\widehat{p} = p^*) &\leq& \mathbb{P}_{\tilde{p}}(\textrm{BIC}(\tilde{p}) > \textrm{BIC}(p^*)) \\
+\mathbb{P}_{p^*}(\widehat{p} = \tilde{p}) &\leq& \mathbb{P}_{p^*}(\textrm{BIC}(\tilde{p}) < \textrm{BIC}(p^*)) \\
 &=& \mathbb{P}_{p^*}(\ln (1+ \textrm{WaldStat} (R(p^*)\beta)/T)  > (\tilde{p}-p^*)\ln(T)/T) \\
 && (\textrm{by equation (3)}) \\
 &\approx& \mathbb{P}_{p^*}(\ln (1+ \chi^2_{\tilde{p}-p^*}/T)  > (\tilde{p}-p^*)\ln(T)/T) \\
@@ -128,7 +128,7 @@ Note that:
 \end{eqnarray*}
 where the last line used the fact that $\ln(1+a) \approx a$. This shows that:
 
-$\mathbb{P}_{p^*}(\widehat{p} = \tilde{p})  \rightarrow 0 $
+$$\mathbb{P}_{p^*}(\widehat{p} = \tilde{p})  \rightarrow 0 $$
 
 \noindent as $n \rightarrow \infty$. 
 

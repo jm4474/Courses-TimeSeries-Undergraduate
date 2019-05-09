@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  15 APR 2019 18:06
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015) (preloaded format=pdflatex 2015.5.24)  9 MAY 2019 19:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -100,7 +100,7 @@ LaTeX Info: Redefining \] on input line 2666.
 LaTeX Warning: Unused global option(s):
     [12].
 
-No file Lecture21_22_23.aux.
+(./Lecture21_22_23.aux)
 \openout1 = `Lecture21_22_23.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 6.
@@ -116,6 +116,7 @@ LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 6.
 LaTeX Font Info:    ... okay on input line 6.
 LaTeX Font Info:    Try loading font information for U+msa on input line 11.
+
 (/usr/local/texlive/2015/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
@@ -146,8 +147,8 @@ Overfull \hbox (12.03629pt too wide) in alignment at lines 98--105
 ### semi simple group (level 1) entered at line 7 (\begingroup)
 ### bottom level 
 Here is how much of TeX's memory you used:
- 1165 strings out of 493089
- 13250 string characters out of 6134842
+ 1167 strings out of 493089
+ 13290 string characters out of 6134842
  68974 words of memory out of 5000000
  4683 multiletter control sequences out of 15000+600000
  12122 words of font info for 47 fonts, out of 8000000 for 9000
@@ -166,7 +167,7 @@ b></usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb>
 </usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy7.pfb></
 usr/local/texlive/2015/texmf-dist/fonts/type1/public/amsfonts/symbols/msbm10.pf
 b>
-Output written on Lecture21_22_23.pdf (6 pages, 132579 bytes).
+Output written on Lecture21_22_23.pdf (6 pages, 132560 bytes).
 PDF statistics:
  71 PDF objects out of 1000 (max. 8388607)
  50 compressed objects within 1 object stream
